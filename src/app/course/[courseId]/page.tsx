@@ -13,6 +13,7 @@ const fetchData = async (id: string) => {
 };
 
 export default async function CoursePageServer({ params }: { params: CoursePageParams }) {
-    const data = await fetchData(params.courseId);
+    const { courseId } = await params;
+    const data = await fetchData(await courseId);
     return <CoursePage data={data} />;
 }
