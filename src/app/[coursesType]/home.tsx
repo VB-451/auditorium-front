@@ -9,12 +9,10 @@ interface HomeProps {
 export default function Home({ data } : HomeProps ) {
     return (
         <>
-            <section>
-                <div className={`w-full flex flex-row flex-wrap ${styles.courses}`}>
-                    {data.map((course : CourseData)=>(
-                        <CoursePreviewServer key={course.id} data={course}/>
-                    ))}
-                </div>
+            <section className={`w-full flex flex-row flex-wrap ${styles.courses}`}>
+                {data.map((course : CourseData)=>(
+                    <CoursePreviewServer key={course.id} data={course}/>
+                ))}
             </section>
         </>
     );

@@ -32,7 +32,7 @@ export default function RootLayout({
     >
       <NavbarServer/>
       <Sidebar />
-      <main className="ml-10 pt-20 pl-10">
+      <main className="ml-10 pt-20 pl-10 pr-6">
         {children}
       </main>
     </body>

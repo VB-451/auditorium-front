@@ -1,4 +1,5 @@
-'use client';
+import styles from "./styles.module.css"
+import Post from "@/app/components/post/post";
 
 type CourseData = {
     id: number;
@@ -6,18 +7,40 @@ type CourseData = {
     join_key: string;
 };
 
-
-interface CoursePageProps {
-    data: CourseData;
+export interface CoursePost {
+    id: number;
+    type: string;
+    title: string;
+    content: string;
+    course_id: number;
+    teacher_id: number;
+    created_at: Date;
 }
 
-export default function CoursePage({ data }: CoursePageProps) {
+interface CoursePageProps {
+    courseData: CourseData;
+    coursePosts: Array<CoursePost>;
+}
+
+
+
+interface CoursePageProps {
+    courseData: CourseData;
+}
+
+export default function CoursePage({ courseData, coursePosts }: CoursePageProps) {
     return (
         <>
-            <h1>Course Page</h1>
-            <p>ID: {data.id}</p>
-            <p>Name: {data.name}</p>
-            <p>Join Key: {data.join_key}</p>
+            <section className={`w-full h-64 flex justify-center items-center`}>
+                <div className={`w-2/3 min-w-fit h-64`}>
+                    <div className={`bg-black w-full h-56 p-3 mb-4 rounded-lg flex justify-start items-end ${styles.description}`}>
+                        <p className={`text-white font-bold text-3xl`}>{courseData.name}</p>
+                    </div>
+                    <div className={``}>
+                        <Post coursePost={coursePosts} />
+                    </div>
+                </div>
+            </section>
         </>
     );
 }
