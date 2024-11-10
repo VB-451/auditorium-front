@@ -13,10 +13,16 @@ const fetchCoursePosts = async (id: string) => {
     return await response.json();
 }
 
+const fetchTeacherData = async (teacherId: number) => {
+    const response = await fetch(`${process.env.BACK_HOST}users/${teacherId}`);
+    return await response.json();
+}
+
 export default async function CoursePageServer({ params }: { params: { courseId: string } }) {
     const { courseId } = await params;
     const courseData = await fetchCourseData(await courseId);
     const coursePosts = await fetchCoursePosts(courseId);
+    const teacherData = await fetchTeacherData(courseData.teacher_id);
 
-    return <CoursePage courseData={courseData} coursePosts={coursePosts} />;
+    return <CoursePage courseData={courseData} coursePosts={coursePosts} teacherData={teacherData} />;
 }

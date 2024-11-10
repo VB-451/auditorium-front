@@ -1,6 +1,5 @@
 "use client"
 
-import styles from "./styles.module.css"
 import Link from "next/link";
 import Image from "next/image";
 import React, {useEffect, useState} from "react";
@@ -18,7 +17,7 @@ export default function Sidebar() {
     }, [pathname]);
 
     return (
-        <aside className={`fixed left-0 top-0 h-full border-r border-gray-500 0 text-black shadow-lg ${styles.aside}`}>
+        <aside className={`fixed bg-white h-full shadow w-[4%] max-w-[55px] min-w-[50px] border-r border-gray-500`}>
             <div className="p-4 pt-24 h-48 flex flex-col justify-around">
                 <Link title="See courses you're enrolled to." href="/student">
                     <Image src={type === "student" ? "/student-active.svg" : "/student.svg"}

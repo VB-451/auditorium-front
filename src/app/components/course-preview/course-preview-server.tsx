@@ -6,20 +6,20 @@ interface CoursePreviewServerData {
     teacher_id: number
 }
 
-const fetchTeacherData = async (teacher_id: number) =>{
-    const response = await fetch(`${process.env.BACK_HOST}users/${teacher_id}`);
+export const fetchUserData = async (user_id: number) =>{
+    const response = await fetch(`${process.env.BACK_HOST}users/${user_id}`);
     if (!response.ok) {
         throw new Error(`Failed to fetch data: ${response.statusText}`);
     }
     return await response.json();
 }
 
-export default async function CoursePreviewServer({ data }: { data: CoursePreviewServerData }) {
-    const teacherData = await fetchTeacherData(data.teacher_id);
+export default async function CoursePreviewServer({ data, color }: { data: CoursePreviewServerData, color: number }) {
+    const teacherData = await fetchUserData(data.teacher_id);
 
     return (
         <>
-            <CoursePreview data={{id: data.id, name: data.name, teacher_name: teacherData.name}} />
+            <CoursePreview data={{id: data.id, name: data.name, teacher_name: teacherData.name}} color={color} />
         </>
     )
 }

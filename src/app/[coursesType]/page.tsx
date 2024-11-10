@@ -24,7 +24,7 @@ export default async function HomeServer({ params } : { params: { coursesType: s
     const { coursesType } = await params;
 
     if (coursesType === "student") {
-        await fetchCoursesByUser(1)
+        await fetchCoursesByUser(4)
     } else if (coursesType === "teacher") {
         await fetchCoursesByTeacher(1)
     } else {

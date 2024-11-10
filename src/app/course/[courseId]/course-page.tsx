@@ -1,11 +1,10 @@
-import styles from "./styles.module.css"
 import Post from "@/app/components/post/post";
 
-type CourseData = {
+export interface CourseData {
     id: number;
     name: string;
     join_key: string;
-};
+}
 
 export interface CoursePost {
     id: number;
@@ -17,30 +16,32 @@ export interface CoursePost {
     created_at: Date;
 }
 
+interface TeacherData{
+    id: number;
+    name: string;
+}
+
 interface CoursePageProps {
     courseData: CourseData;
     coursePosts: Array<CoursePost>;
+    teacherData: TeacherData;
 }
 
-
-
-interface CoursePageProps {
-    courseData: CourseData;
-}
-
-export default function CoursePage({ courseData, coursePosts }: CoursePageProps) {
+export default function CoursePage({ courseData, coursePosts, teacherData }: CoursePageProps) {
+    console.log(teacherData);
     return (
-        <>
-            <section className={`w-full h-64 flex justify-center items-center`}>
-                <div className={`w-2/3 min-w-fit h-64`}>
-                    <div className={`bg-black w-full h-56 p-3 mb-4 rounded-lg flex justify-start items-end ${styles.description}`}>
-                        <p className={`text-white font-bold text-3xl`}>{courseData.name}</p>
-                    </div>
-                    <div className={``}>
-                        <Post coursePost={coursePosts} />
-                    </div>
+        <section className="w-full flex justify-center items-center">
+            <div className="w-2/3">
+                <div className={`bg-primary_pink w-full h-56 p-4 mb-4 rounded-lg flex justify-between items-end`}>
+                    <p className="text-white font-bold text-3xl">{courseData.name}</p>
+                    <p className={`text-white font-bold`}>{teacherData.name}</p>
                 </div>
-            </section>
-        </>
+                <div>
+                    {coursePosts.map((post) => (
+                        <Post key={post.id} data={post} courseId={courseData.id} />
+                    ))}
+                </div>
+            </div>
+        </section>
     );
 }
