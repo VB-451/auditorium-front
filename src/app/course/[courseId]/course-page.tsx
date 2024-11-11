@@ -28,7 +28,6 @@ interface CoursePageProps {
 }
 
 export default function CoursePage({ courseData, coursePosts, teacherData }: CoursePageProps) {
-    console.log(teacherData);
     return (
         <section className="w-full flex justify-center items-center">
             <div className="w-2/3">

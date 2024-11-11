@@ -1,4 +1,5 @@
 import CoursePage from "@/app/course/[courseId]/course-page";
+import {fetchUserData} from "@/app/components/course-preview/course-preview-server";
 
 const fetchCourseData = async (id: string) => {
     const response = await fetch(`${process.env.BACK_HOST}courses/${id}`);
@@ -13,16 +14,11 @@ const fetchCoursePosts = async (id: string) => {
     return await response.json();
 }
 
-const fetchTeacherData = async (teacherId: number) => {
-    const response = await fetch(`${process.env.BACK_HOST}users/${teacherId}`);
-    return await response.json();
-}
-
 export default async function CoursePageServer({ params }: { params: { courseId: string } }) {
     const { courseId } = await params;
     const courseData = await fetchCourseData(await courseId);
     const coursePosts = await fetchCoursePosts(courseId);
-    const teacherData = await fetchTeacherData(courseData.teacher_id);
+    const teacherData = await fetchUserData(courseData.teacher_id);
 
     return <CoursePage courseData={courseData} coursePosts={coursePosts} teacherData={teacherData} />;
 }

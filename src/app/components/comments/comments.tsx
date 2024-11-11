@@ -1,3 +1,5 @@
+'use client'
+
 import Comment from "@/app/components/comment/comment";
 
 export interface CommentInterface {

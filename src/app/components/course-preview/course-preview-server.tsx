@@ -7,7 +7,8 @@ interface CoursePreviewServerData {
 }
 
 export const fetchUserData = async (user_id: number) =>{
-    const response = await fetch(`${process.env.BACK_HOST}users/${user_id}`);
+    console.log(user_id)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACK_HOST}users/${user_id}`);
     if (!response.ok) {
         throw new Error(`Failed to fetch data: ${response.statusText}`);
     }
