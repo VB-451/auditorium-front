@@ -1,16 +1,11 @@
-import { CoursePost } from "@/app/course/[courseId]/course-page";
+import {CoursePost} from "@/app/types/Post";
 import Image from "next/image";
 import Link from "next/link";
+import {formatDate} from "@/app/utils/formatDate";
 
 interface PostProps {
     data: CoursePost;
     courseId: number;
-}
-
-export const formatDate = (dateString: string): string => {
-    const date = new Date(dateString);
-    const formatted = new Intl.DateTimeFormat('en-GB').format(date);
-    return formatted.replaceAll("/", '.');
 }
 
 export default function Post({ data, courseId }: PostProps) {

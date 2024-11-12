@@ -1,5 +1,5 @@
 import CoursePreviewServer from "@/app/components/course-preview/course-preview-server";
-import {CourseData} from "@/app/[coursesType]/page";
+import {CourseData} from "@/app/types/Course";
 
 interface HomeProps {
     data: CourseData[];

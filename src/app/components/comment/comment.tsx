@@ -1,23 +1,20 @@
-// 'use client'
-
-import {CommentInterface} from "@/app/components/comments/comments";
-import {fetchUserData} from "@/app/components/course-preview/course-preview-server";
+import {fetchUserData} from "@/app/utils/fetchUserData";
 import Image from "next/image";
+import {useEffect, useState} from "react";
+import {CommentInterface} from "@/app/types/Comment";
+import {formatDate} from "@/app/utils/formatDate";
 
-import { formatDate } from "@/app/components/post/post";
-import React, {useEffect, useState} from "react";
 
-
-export default function Comment({ comment } : { comment : CommentInterface }) {
+export default function Comment({ comment, teacherID } : { comment : CommentInterface, teacherID : number }) {
     const [userdata, setUserdata] = useState({name: ""})
 
     useEffect(() => {
         const getUserData = async (user_id : number) =>{
             const userData = await fetchUserData(user_id);
-            setUserdata(await userData.json());
+            setUserdata(userData);
         }
         getUserData(comment.user_id)
-    }, []);
+    }, [comment.user_id]);
 
     return (
         <div className="mb-7 w-full flex items-center justify-center">
@@ -25,7 +22,10 @@ export default function Comment({ comment } : { comment : CommentInterface }) {
             <div className={"flex flex-col w-full"}>
                 <div className="w-full flex items-center mb-1">
                     <p className={"font-semibold mr-1"}>{`${userdata.name} ·`}</p>
-                    <p>{formatDate(comment.created_at.toString())}</p>
+                    <p className="mr-1">{formatDate(comment.created_at.toString())}</p>
+                    {comment.user_id === teacherID && (
+                        <p className="text-primary_green font-semibold">[teacher]</p>
+                    )}
                 </div>
                 <p>{comment.content}</p>
             </div>

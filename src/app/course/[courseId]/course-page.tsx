@@ -1,20 +1,6 @@
 import Post from "@/app/components/post/post";
-
-export interface CourseData {
-    id: number;
-    name: string;
-    join_key: string;
-}
-
-export interface CoursePost {
-    id: number;
-    type: string;
-    title: string;
-    content: string;
-    course_id: number;
-    teacher_id: number;
-    created_at: Date;
-}
+import {CourseData} from "@/app/types/Course";
+import {CoursePost} from "@/app/types/Post";
 
 interface TeacherData{
     id: number;
@@ -36,6 +22,10 @@ export default function CoursePage({ courseData, coursePosts, teacherData }: Cou
                     <p className={`text-white font-bold`}>{teacherData.name}</p>
                 </div>
                 <div>
+
+                    {!coursePosts.length && (
+                        <p className="w-full text-3xl text-center font-semibold">There are no posts for now</p>
+                    )}
                     {coursePosts.map((post) => (
                         <Post key={post.id} data={post} courseId={courseData.id} />
                     ))}

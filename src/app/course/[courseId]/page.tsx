@@ -1,18 +1,8 @@
 import CoursePage from "@/app/course/[courseId]/course-page";
-import {fetchUserData} from "@/app/components/course-preview/course-preview-server";
+import {fetchUserData} from "@/app/utils/fetchUserData";
+import {fetchCourseData} from "@/app/utils/fetchCourseData";
+import {fetchCoursePosts} from "@/app/utils/fetchCoursePosts";
 
-const fetchCourseData = async (id: string) => {
-    const response = await fetch(`${process.env.BACK_HOST}courses/${id}`);
-    if (!response.ok) {
-        throw new Error(`Failed to fetch data: ${response.statusText}`);
-    }
-    return await response.json();
-};
-
-const fetchCoursePosts = async (id: string) => {
-    const response = await fetch(`${process.env.BACK_HOST}posts/by-course/${id}`);
-    return await response.json();
-}
 
 export default async function CoursePageServer({ params }: { params: { courseId: string } }) {
     const { courseId } = await params;

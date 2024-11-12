@@ -1,32 +1,17 @@
 import Home from "@/app/[coursesType]/home";
 import NotFound from "@/app/not-found";
-
-export interface CourseData {
-    id: number
-    name: string
-    join_key: string
-    teacher_id: number
-}
-
-let coursesData : Array<CourseData> = [];
-
-const fetchCoursesByUser = async (userId: number) =>{
-    const response = await fetch(`${process.env.BACK_HOST}courses/by-user/${userId}`);
-    coursesData = await response.json();
-}
-
-const fetchCoursesByTeacher = async (teacherId: number) =>{
-    const response = await fetch(`${process.env.BACK_HOST}courses/by-teacher/${teacherId}`);
-    coursesData = await response.json();
-}
+import {CourseData} from "@/app/types/Course";
+import {fetchCoursesBy} from "@/app/utils/fetchCoursesBy";
 
 export default async function HomeServer({ params } : { params: { coursesType: string }}) {
     const { coursesType } = await params;
 
+    let coursesData : Array<CourseData> = [];
+
     if (coursesType === "student") {
-        await fetchCoursesByUser(4)
+        coursesData = await fetchCoursesBy(4, undefined);
     } else if (coursesType === "teacher") {
-        await fetchCoursesByTeacher(1)
+        coursesData = await fetchCoursesBy(undefined,1)
     } else {
         return <NotFound />
     }

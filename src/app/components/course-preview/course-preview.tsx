@@ -1,12 +1,8 @@
 import Link from "next/link";
+import { CourseDataAndName } from "@/app/types/CourseAndName";
 
-interface CourseData {
-    id: number
-    name: string
-    teacher_name: string
-}
 
-export default function CoursePreview({ data, color } : {data: CourseData, color:number }){
+export default function CoursePreview({ data, color } : {data: CourseDataAndName, color:number }){
     const colorClass = (() => {
         switch (color) {
             case 1:
