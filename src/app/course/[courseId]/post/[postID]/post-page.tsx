@@ -43,9 +43,9 @@ export default async function PostPage({ postData }: { postData: CoursePost }) {
                             <button className="bg-primary_green text-white text-xl font-bold px-3 py-2 rounded">Submit
                                 Homework
                             </button>
-                            <Link href={`/course/${courseData.id}/post/${postData.id}/submissions`}>
+                            <Link href={`/course/${postData.course_id}/post/${postData.id}/submissions`}>
                                 <button className="bg-primary_green text-white text-xl font-bold px-3 py-2 rounded">View
-                                    Submissions
+                                    Submissionss
                                 </button>
                             </Link>
                         </div>
