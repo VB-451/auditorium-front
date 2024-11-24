@@ -1,6 +1,6 @@
-import PostPage from "@/app/course/[courseId]/post/[postID]/post-page";
+import PostPage from "@/pages/post-page";
 import NotFound from "@/app/not-found";
-import {fetchPostData} from "@/app/utils/fetchPostData";
+import {fetchPostData} from "@/utils/fetchPostData";
 
 
 export default async function PostPageServer({ params }: { params: { postID: string, courseId: string } }) {

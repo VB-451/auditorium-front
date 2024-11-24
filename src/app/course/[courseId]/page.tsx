@@ -1,14 +1,12 @@
-import CoursePage from "@/app/course/[courseId]/course-page";
-import {fetchUserData} from "@/app/utils/fetchUserData";
-import {fetchCourseData} from "@/app/utils/fetchCourseData";
-import {fetchCoursePosts} from "@/app/utils/fetchCoursePosts";
+import CoursePage from "@/pages/course-page";
+import {fetchCourseData} from "@/utils/fetchCourseData";
+import {fetchCoursePosts} from "@/utils/fetchCoursePosts";
 
 
 export default async function CoursePageServer({ params }: { params: { courseId: string } }) {
     const { courseId } = await params;
-    const courseData = await fetchCourseData(await courseId);
+    const courseData = await fetchCourseData(courseId);
     const coursePosts = await fetchCoursePosts(courseId);
-    const teacherData = await fetchUserData(courseData.teacher_id);
 
-    return <CoursePage courseData={courseData} coursePosts={coursePosts} teacherData={teacherData} />;
+    return <CoursePage courseData={courseData} coursePosts={coursePosts} />;
 }
