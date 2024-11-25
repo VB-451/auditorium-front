@@ -15,10 +15,6 @@ export default function RegisterPage() {
     const [userExists, setUserExists] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    if (typeof window === "undefined") {
-        return null; // Avoid using useRouter on the server
-    }
-
     const nameValidated = username.length < 50 && username.length > 3;
     const passwordValidated = password.length < 50 && password.length > 7;
     const passwordConfirmed = password === confirmPass;
@@ -35,9 +31,9 @@ export default function RegisterPage() {
         setLoading(true);
         setUserExists(false);
         const userData = {
-            name: username,
+            name: username.trim(),
             password: password,
-            email: email,
+            email: email.trim(),
         }
         const response = await fetch(`${process.env.NEXT_PUBLIC_BACK_HOST}/users`, {
             method: 'POST',
@@ -64,7 +60,7 @@ export default function RegisterPage() {
                 <form onSubmit={handleSubmit} className={`flex flex-col justify-center h-fit w-10/12 mt-5`}>
                     <input type="text" id="name" placeholder="Name" value={username}
                            onChange={(e) => {
-                               setUsername(e.target.value.trim())
+                               setUsername(e.target.value)
                            }}
                            className={`bg-gray-100 h-10 w-full px-2 py-1 rounded focus:outline-none ${!nameValidated && username ? "border border-primary_pink" : "" }`}/>
                     <label htmlFor="name" className={`my-1 text-xs ${!nameValidated && username ? "text-primary_pink" : "text-transparent"}`}>

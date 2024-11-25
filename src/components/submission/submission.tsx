@@ -9,7 +9,11 @@ export default async function Submission({submissionData, markInterval} : {submi
                     <Image className="rounded-full w-10 h-10 mr-3" src={"/pfp.jpg"} alt={"pfp"} width={40} height={40} />
                     <p className="mr-3 text-lg font-sans">{submissionData.student_name}</p>
                     <div className="w-[1px] h-9 bg-gray-300 mr-3" />
-                    <p className="text-primary_green font-semibold">{`on ${formatDate(submissionData.created_at.toString())}`}</p>
+                    <p className="text-primary_green font-semibold">
+                        {`on ${formatDate(submissionData.edited_at 
+                            ? submissionData.edited_at.toString() 
+                            : submissionData.created_at.toString())}`}
+                    </p>
                 </div>
                 <div className="font-semibold">
                     {submissionData.mark ? <p className="text-primary_green">
