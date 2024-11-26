@@ -1,1 +1,1 @@
-export const ApiBearer = "Bearer";
+export const ApiBearer = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsInVzZXJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE3MzI1NjM1MjIsImV4cCI6MTczMjgyMjcyMn0.J6aS2HfNHSRj6dwmn1ggpa0Z49IttiR3X3QNDLl6NyY";

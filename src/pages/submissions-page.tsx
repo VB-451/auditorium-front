@@ -1,4 +1,3 @@
-import {CourseData} from "@/types/Course";
 import {SubmissionInterface} from "@/types/Submission";
 import Submission from "@/components/submission/submission";
 import {User} from "@/types/User";
@@ -27,12 +26,12 @@ export default function SubmissionsPage({submissionsData, notSubmittedData, post
             </div>
             <div className="w-2/3 flex flex-col justify-start items-start mb-5">
                 {notSubmittedData.map((user: User) => (
-                    <AbsentSubmission key={user.id} userData={user} />
+                    <AbsentSubmission key={user.id} userData={user} deadline={postData.deadline} />
                 ))}
                 {submissionsData
                     .sort((a) => (a.mark === null ? -1 : 1))
                     .map((submissionData: SubmissionInterface) => (
-                        <Submission key={submissionData.id} submissionData={submissionData} markInterval={postData.mark_interval} />
+                        <Submission key={submissionData.id} submissionData={submissionData} markInterval={postData.mark_interval} deadline={postData.deadline} />
                 ))}
             </div>
         </section>
