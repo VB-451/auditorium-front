@@ -16,7 +16,7 @@ export default function CoursePage({ courseData, coursePosts }: CoursePageProps)
     return (
         <section className="w-full flex justify-center items-center">
             <div className="w-2/3">
-                <div className={`bg-primary_pink w-full h-56 p-4 mb-4 rounded-lg flex justify-between items-end`}>
+                <div className={`bg-primary_${courseData.color} w-full h-56 p-4 mb-4 rounded-lg flex justify-between items-end`}>
                     <p className="text-white font-bold text-3xl">{courseData.name}</p>
                     <p className={`text-white font-bold`}>{courseData.teacher_name}</p>
                 </div>

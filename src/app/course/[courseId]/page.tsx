@@ -1,12 +1,21 @@
 import CoursePage from "@/pages/course-page";
 import {fetchCourseData} from "@/utils/fetchCourseData";
 import {fetchCoursePosts} from "@/utils/fetchCoursePosts";
+import {cookies} from "next/headers";
+import NotFound from "@/app/not-found";
+import { redirect } from 'next/navigation'
 
 
 export default async function CoursePageServer({ params }: { params: { courseId: string } }) {
     const { courseId } = await params;
-    const courseData = await fetchCourseData(courseId);
-    const coursePosts = await fetchCoursePosts(courseId);
+    const cookieStore = await cookies();
+    const courseData = await fetchCourseData(courseId, cookieStore.get("accessToken")?.value);
+    if (courseData.statusCode === 404) {
+        return <NotFound />;
+    } else if (courseData.statusCode === 403) {
+        redirect(`/`)
+    }
+    const coursePosts = await fetchCoursePosts(courseId, cookieStore.get("accessToken")?.value);
 
     return <CoursePage courseData={courseData} coursePosts={coursePosts} />;
 }

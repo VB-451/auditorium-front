@@ -1,9 +1,11 @@
 import Navbar from "@/components/navbar/navbar";
+import { cookies } from 'next/headers'
 
-export default function NavbarServer() {
+export default async function NavbarServer() {
+    const cookieStore = await cookies();
     return (
         <>
-            <Navbar />
+            <Navbar name={cookieStore.get("username")?.value} />
         </>
     )
 }

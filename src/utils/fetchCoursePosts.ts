@@ -1,8 +1,6 @@
-import {ApiBearer} from "@/utils/apibearer";
-
-export const fetchCoursePosts = async (id: string) => {
+export const fetchCoursePosts = async (id: string, token: string | undefined) => {
     const response = await fetch(`${process.env.BACK_HOST}/posts/by-course/${id}`,{
-        headers:  { 'Authorization': `${ApiBearer}` },
+        headers:  { 'Authorization': `Bearer ${token}` },
     });
     return await response.json();
 }

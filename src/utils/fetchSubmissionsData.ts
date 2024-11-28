@@ -1,8 +1,6 @@
-import {ApiBearer} from "@/utils/apibearer";
-
-export const fetchSubmissionsData = async (postId: string) => {
+export const fetchSubmissionsData = async (postId: string, token: string | undefined) => {
     const response = await fetch(`${process.env.BACK_HOST}/submissions/by-post/${postId}`,{
-        headers:  { 'Authorization': `${ApiBearer}` },
+        headers:  { 'Authorization': `Bearer ${token}` },
     });
     return await response.json();
 }

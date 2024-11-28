@@ -7,19 +7,18 @@ import {shortenText} from "@/utils/shortenText";
 import Link from "next/link";
 
 
-export default async function PostPage({ postData }: { postData: CoursePost }) {
-    const courseData= await fetchCourseData(postData.course_id);
+export default async function PostPage({ postData, cookieName }: { postData: CoursePost, cookieName: string | undefined }) {
 
     return (
         <section className="flex flex-col justify-center items-center mb-5">
             <div className={`bg-primary_blue w-2/3 h-16 p-4 mb-3 rounded-lg flex flex-row justify-between items-center`}>
-                <div className={"flex items-center flex-grow"}>
-                    <Link className={"mr-2"} href={`/course/${courseData.id}`}>
-                        <p className="text-white font-bold text-xl hover:underline">{courseData.name}</p>
-                    </Link>
-                    <p className="text-white font-bold text-xl">{`> ${shortenText(postData.title, 30)}`}</p>
-                </div>
-                <p className={`text-white font-bold`}>{courseData.teacher_name}</p>
+                {/*<div className={"flex items-center flex-grow"}>*/}
+                {/*    <Link className={"mr-2"} href={`/course/${courseData.id}`}>*/}
+                {/*        <p className="text-white font-bold text-xl hover:underline">{courseData.name}</p>*/}
+                {/*    </Link>*/}
+                {/*    <p className="text-white font-bold text-xl">{`> ${shortenText(postData.title, 30)}`}</p>*/}
+                {/*</div>*/}
+                {/*<p className={`text-white font-bold`}>{courseData.teacher_name}</p>*/}
             </div>
             <div className="bg-white h-fit w-2/3 rounded-xl flex items-center justify-start flex-col">
                 <div className="w-full h-fit flex items-center px-7 py-4">
@@ -38,14 +37,17 @@ export default async function PostPage({ postData }: { postData: CoursePost }) {
                     </div>
                     {postData.type === "HOMEWORK" && (
                         <div className="w-full max-w-64  flex justify-center items-center">
-                            <button className="bg-primary_green text-white text-xl font-bold px-3 py-2 rounded">Submit
-                                Homework
-                            </button>
-                            <Link href={`/course/${postData.course_id}/post/${postData.id}/submissions`}>
-                                <button className="bg-primary_green text-white text-xl font-bold px-3 py-2 rounded">View
-                                    Submissionss
+                            {!(cookieName === postData.teacher_name) ? (
+                                <button className="bg-primary_green text-white text-xl font-bold px-3 py-2 rounded">Submit
+                                    Homework
                                 </button>
-                            </Link>
+                            ) : (
+                                <Link href={`/course/${postData.course_id}/post/${postData.id}/submissions`}>
+                                    <button className="bg-primary_green text-white text-xl font-bold px-3 py-2 rounded">View
+                                        Submissionss
+                                    </button>
+                                </Link>
+                            )}
                         </div>
                     )}
                 </div>
