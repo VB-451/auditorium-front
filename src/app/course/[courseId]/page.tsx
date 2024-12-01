@@ -13,9 +13,9 @@ export default async function CoursePageServer({ params }: { params: { courseId:
     if (courseData.statusCode === 404) {
         return <NotFound />;
     } else if (courseData.statusCode === 403) {
-        redirect(`/`)
+        redirect(`/login`)
     }
     const coursePosts = await fetchCoursePosts(courseId, cookieStore.get("accessToken")?.value);
 
-    return <CoursePage courseData={courseData} coursePosts={coursePosts} />;
+    return <CoursePage courseData={courseData} cookiesID={Number(cookieStore.get("userID")?.value)} coursePosts={coursePosts} />;
 }

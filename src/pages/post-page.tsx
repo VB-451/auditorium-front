@@ -2,9 +2,8 @@ import Image from "next/image";
 import CommentsServer from "@/components/comments/comments-server";
 import {CoursePost} from "@/types/Post";
 import {formatDate} from "@/utils/formatDate";
-import {fetchCourseData} from "@/utils/fetchCourseData";
-import {shortenText} from "@/utils/shortenText";
 import Link from "next/link";
+import Options from "@/components/options/options";
 
 
 export default async function PostPage({ postData, cookieName }: { postData: CoursePost, cookieName: string | undefined }) {
@@ -23,7 +22,8 @@ export default async function PostPage({ postData, cookieName }: { postData: Cou
             <div className="bg-white h-fit w-2/3 rounded-xl flex items-center justify-start flex-col">
                 <div className="w-full h-fit flex items-center px-7 py-4">
                     <div className="flex items-center flex-grow">
-                        <div className="bg-primary_green min-w-12 min-h-10 flex items-center justify-center rounded-full mr-7">
+                        <div
+                            className="bg-primary_green min-w-12 min-h-10 flex items-center justify-center rounded-full mr-7">
                             <Image className={postData.type === "HOMEWORK" ? "w-5 h-5 m-3.5" : "w-8 m-2 h-8"}
                                    src={postData.type === "HOMEWORK" ? "/homework.svg" : "/announcement.svg"}
                                    alt="Icon"
@@ -38,18 +38,21 @@ export default async function PostPage({ postData, cookieName }: { postData: Cou
                     {postData.type === "HOMEWORK" && (
                         <div className="w-full max-w-64  flex justify-center items-center">
                             {!(cookieName === postData.teacher_name) ? (
-                                <button className="bg-primary_green text-white text-xl font-bold px-3 py-2 rounded">Submit
+                                <button
+                                    className="bg-primary_green text-white text-xl font-bold px-3 py-2 rounded">Submit
                                     Homework
                                 </button>
                             ) : (
                                 <Link href={`/course/${postData.course_id}/post/${postData.id}/submissions`}>
-                                    <button className="bg-primary_green text-white text-xl font-bold px-3 py-2 rounded">View
-                                        Submissionss
+                                    <button
+                                        className="bg-primary_green text-white text-xl font-bold px-3 py-2 rounded">View
+                                        Submissions
                                     </button>
                                 </Link>
                             )}
                         </div>
                     )}
+                    <Options type="post" isTeacher={postData.teacher_name === cookieName} id={postData.id} />
                 </div>
                 <div className="w-[95%] h-[1px] bg-gray-200 mb-6"/>
                 <div className="flex w-full pl-8 mb-6"><p>{postData.content}</p></div>

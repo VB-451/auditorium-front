@@ -11,7 +11,7 @@ export default async function PostPageServer({ params }: { params: { postID: str
     if (postData.statusCode === 404){
         return <NotFound />
     } else if (postData.statusCode === 403){
-        redirect(`/`)
+        redirect(`/login`)
     }
     return (
         <PostPage postData={postData} cookieName={cookieStore.get("username")?.value} />

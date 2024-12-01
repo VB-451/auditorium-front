@@ -1,19 +1,14 @@
 "use client"
 
-import {useRouter} from "next/navigation";
 import {FormEvent, useState} from "react";
 import {loginFetch} from "@/utils/login";
-import {handleLogout} from "@/utils/handleLogout";
 
 export default function LoginPage() {
-    const router = useRouter();
 
-    const [login, setLogin] = useState("John Doe");
+    const [login, setLogin] = useState("Margaret Willson");
     const [password, setPassword] = useState("abc123qwe");
     const [loading, setLoading] = useState(false);
     const [wrongCredentials, setWrongCredentials] = useState(false);
-
-    handleLogout()
 
     const handleLogin = async (e: FormEvent) =>{
         e.preventDefault();
@@ -29,9 +24,9 @@ export default function LoginPage() {
         } else {
             const authResult = await response.json();
 
-            document.cookie = `accessToken=${authResult.accessToken}; path=/; max-age=${3600 * 1000}; sameSite=Lax`;
-            document.cookie = `userID=${authResult.userID}; path=/; max-age=${3600 * 1000}; sameSite=Lax`;
-            document.cookie = `username=${authResult.username}; path=/; max-age=${3600 * 1000}; sameSite=Lax`;
+            document.cookie = `accessToken=${authResult.accessToken}; path=/; max-age=${3600 * 24 * 3}; sameSite=Lax`;
+            document.cookie = `userID=${authResult.userID}; path=/; max-age=${3600 * 24 * 3}; sameSite=Lax`;
+            document.cookie = `username=${authResult.username}; path=/; max-age=${3600 * 24 * 3}; sameSite=Lax`;
 
             location.assign("/courses/teacher")
         }

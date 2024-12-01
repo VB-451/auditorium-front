@@ -1,11 +1,13 @@
 import CoursePreviewServer from "@/components/course-preview/course-preview-server";
 import {CourseData} from "@/types/Course";
+import NewCoursePreview from "@/components/course-preview/new-course-preview";
 
 interface HomeProps {
     data: CourseData[];
+    type: string,
 }
 
-export default function CoursesPage({ data } : HomeProps ) {
+export default function CoursesPage({ data, type } : HomeProps ) {
 
     return (
         <>
@@ -15,6 +17,7 @@ export default function CoursesPage({ data } : HomeProps ) {
                         <CoursePreviewServer key={course.id} data={course} />
                     );
                 })}
+                <NewCoursePreview type={type} />
             </section>
         </>
     );

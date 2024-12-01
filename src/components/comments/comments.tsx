@@ -1,6 +1,6 @@
 'use client'
 
-import Comment from "@/components/comment/comment";
+import Comment from "@/components/comments/comment";
 import {useState} from "react";
 import { CommentInterface } from "@/types/Comment";
 import Image from "next/image";

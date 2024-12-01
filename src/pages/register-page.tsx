@@ -48,7 +48,7 @@ export default function RegisterPage() {
                 setLoading(false);
             }, 700);
         } else {
-            router.replace("/courses/teacher");
+            router.replace("/login");
         }
     };
 
