@@ -4,6 +4,7 @@ import {fetchCoursePosts} from "@/utils/fetchCoursePosts";
 import {cookies} from "next/headers";
 import NotFound from "@/app/not-found";
 import { redirect } from 'next/navigation'
+import {fetchCourseUsers} from "@/utils/fetchCourseUsers";
 
 
 export default async function CoursePageServer({ params }: { params: { courseId: string } }) {
@@ -15,7 +16,8 @@ export default async function CoursePageServer({ params }: { params: { courseId:
     } else if (courseData.statusCode === 403) {
         redirect(`/login`)
     }
+    const courseUsers = await fetchCourseUsers(courseId, cookieStore.get("accessToken")?.value)
     const coursePosts = await fetchCoursePosts(courseId, cookieStore.get("accessToken")?.value);
 
-    return <CoursePage courseData={courseData} cookiesID={Number(cookieStore.get("userID")?.value)} coursePosts={coursePosts} />;
+    return <CoursePage courseData={courseData} cookiesID={Number(cookieStore.get("userID")?.value)} coursePosts={coursePosts} courseUsers={courseUsers} />;
 }

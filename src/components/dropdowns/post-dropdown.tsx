@@ -3,8 +3,8 @@
 import {useState} from "react";
 import Modal from "@/components/modal/modal";
 import Confirmation from "@/components/confirmation/confirmation";
-import Enroll from "@/components/enroll/enroll";
 import {deletePost} from "@/utils/deletePost";
+import EditPost from "@/components/edit-post/edit-post";
 
 export default function PostDropdown({isTeacher, post_id} : {isTeacher: boolean, post_id: number}) {
     const [isOn, setIsOn] = useState(false);
@@ -38,7 +38,7 @@ export default function PostDropdown({isTeacher, post_id} : {isTeacher: boolean,
             </ul>
             <Modal isOpen={isOn} action={toggleOn}>
                 {type === "edit"
-                    ? <Enroll />
+                    ? <EditPost />
                     : <Confirmation question={"The post and all of its comments and submissions will be deleted"}
                                     confirmName={"Delete post"} executeFunction={deletePost} toggle={toggleOn} id={post_id} />}
             </Modal>

@@ -3,14 +3,16 @@ import {CourseData} from "@/types/Course";
 import {CoursePost} from "@/types/Post";
 import Options from "@/components/options/options";
 import NewPost from "@/components/post/new-post";
+import {User} from "@/types/User";
 
 interface CoursePageProps {
     courseData: CourseData;
     cookiesID: number | undefined;
     coursePosts: Array<CoursePost>;
+    courseUsers: Array<User>
 }
 
-export default function CoursePage({ courseData, coursePosts, cookiesID }: CoursePageProps) {
+export default function CoursePage({ courseData, coursePosts, cookiesID, courseUsers }: CoursePageProps) {
 
     return (
         <section className="w-full flex justify-center items-center">
@@ -23,7 +25,7 @@ export default function CoursePage({ courseData, coursePosts, cookiesID }: Cours
                         )}
                         <p className={`text-white font-bold`}>{courseData.teacher_name}</p>
                     </div>
-                    <Options type={"course"} isTeacher={courseData.teacher_id === cookiesID} id={courseData.id}  />
+                    <Options type={"course"} isTeacher={courseData.teacher_id === cookiesID} id={courseData.id} courseUsers={courseUsers}  />
                 </div>
                 <div>
                     {courseData.teacher_id === cookiesID && (

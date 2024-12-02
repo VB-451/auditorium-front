@@ -4,8 +4,9 @@ import Image from "next/image";
 import {useState} from "react";
 import CourseDropdown from "@/components/dropdowns/course-dropdown";
 import PostDropdown from "@/components/dropdowns/post-dropdown";
+import {User} from "@/types/User";
 
-export default function Options({type, isTeacher, id}: {type: string, isTeacher: boolean, id: number}) {
+export default function Options({type, isTeacher, id, courseUsers}: {type: string, isTeacher: boolean, id: number, courseUsers?: Array<User>}) {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
 
     const handleDropdownToggle = () => {
@@ -31,7 +32,7 @@ export default function Options({type, isTeacher, id}: {type: string, isTeacher:
             )}
             {isDropdownOpen && (
                 <div className="absolute top-full right-0 mt-2 w-40 bg-white shadow-lg rounded-md">
-                    {type === "course" ? <CourseDropdown isTeacher={isTeacher} course_id={id} /> : <PostDropdown isTeacher={isTeacher} post_id={id} />}
+                    {type === "course" ? <CourseDropdown isTeacher={isTeacher} course_id={id} courseUsers={courseUsers} /> : <PostDropdown isTeacher={isTeacher} post_id={id} />}
                 </div>
             )}
         </div>
