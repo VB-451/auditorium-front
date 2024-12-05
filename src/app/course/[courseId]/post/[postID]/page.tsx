@@ -1,6 +1,6 @@
 import PostPage from "@/pages/post-page";
 import NotFound from "@/app/not-found";
-import {fetchPostData} from "@/utils/fetchPostData";
+import {fetchPostData} from "@/utils/posts/fetchPostData";
 import {cookies} from "next/headers";
 import { redirect } from 'next/navigation'
 

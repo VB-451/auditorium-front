@@ -1,7 +1,7 @@
 "use client"
 
 import {ReactNode} from "react";
-import {getCookie} from "@/utils/getCookie";
+import {getCookie} from "@/utils/common/getCookie";
 import {ModalContext} from "@/contexts/modal-context";
 
 interface ModalProps {

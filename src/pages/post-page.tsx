@@ -1,7 +1,7 @@
 import Image from "next/image";
 import CommentsServer from "@/components/comments/comments-server";
 import {CoursePost} from "@/types/Post";
-import {formatDate} from "@/utils/formatDate";
+import {formatDate} from "@/utils/common/formatDate";
 import Link from "next/link";
 import Options from "@/components/options/options";
 
@@ -19,7 +19,7 @@ export default async function PostPage({ postData, cookieName }: { postData: Cou
                 {/*</div>*/}
                 {/*<p className={`text-white font-bold`}>{courseData.teacher_name}</p>*/}
             </div>
-            <div className="bg-white h-fit w-2/3 rounded-xl flex items-center justify-start flex-col">
+            <div className="bg-white h-fit w-2/3 rounded-xl flex justify-start flex-col">
                 <div className="w-full h-fit flex items-center px-7 py-4">
                     <div className="flex items-center flex-grow">
                         <div
@@ -52,12 +52,16 @@ export default async function PostPage({ postData, cookieName }: { postData: Cou
                             )}
                         </div>
                     )}
-                    <Options type="post" isTeacher={postData.teacher_name === cookieName} id={postData.id} />
+                    <Options type="post" isTeacher={postData.teacher_name === cookieName} id={postData.id}/>
                 </div>
-                <div className="w-[95%] h-[1px] bg-gray-200 mb-6"/>
+                <div className="flex justify-center items-center w-full">
+                    <div className="w-[95%] h-[1px] bg-gray-200 mb-6"/>
+                </div>
                 <div className="flex w-full pl-8 mb-6"><p>{postData.content}</p></div>
-                <div className="w-[95%] h-[1px] bg-gray-200 mb-6"/>
-                <CommentsServer postID={postData.id} teacherName={postData.teacher_name}/>
+                <div className="flex justify-center items-center w-full">
+                    <div className="w-[95%] h-[1px] bg-gray-200 mb-6"/>
+                </div>
+                <CommentsServer id={postData.id} teacherName={postData.teacher_name} type={"post"}/>
             </div>
         </section>
 

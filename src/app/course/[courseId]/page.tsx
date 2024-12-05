@@ -1,10 +1,10 @@
 import CoursePage from "@/pages/course-page";
-import {fetchCourseData} from "@/utils/fetchCourseData";
-import {fetchCoursePosts} from "@/utils/fetchCoursePosts";
+import {fetchCourseData} from "@/utils/courses/fetchCourseData";
+import {fetchCoursePosts} from "@/utils/courses/fetchCoursePosts";
 import {cookies} from "next/headers";
 import NotFound from "@/app/not-found";
 import { redirect } from 'next/navigation'
-import {fetchCourseUsers} from "@/utils/fetchCourseUsers";
+import {fetchCourseUsers} from "@/utils/courses/fetchCourseUsers";
 
 
 export default async function CoursePageServer({ params }: { params: { courseId: string } }) {

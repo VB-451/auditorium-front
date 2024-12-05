@@ -1,6 +1,6 @@
 import {SubmissionInterface} from "@/types/Submission";
 import Image from "next/image";
-import {dateDiff} from "@/utils/dateDiff";
+import {dateDiff} from "@/utils/common/dateDiff";
 
 export default async function Submission({submissionData, markInterval, deadline} : {submissionData: SubmissionInterface, markInterval: number, deadline: Date}) {
     const lastChanged = submissionData.edited_at || submissionData.created_at;

@@ -5,13 +5,16 @@ import {useState} from "react";
 import CourseDropdown from "@/components/dropdowns/course-dropdown";
 import PostDropdown from "@/components/dropdowns/post-dropdown";
 import {User} from "@/types/User";
+import {CourseData} from "@/types/Course";
 
-export default function Options({type, isTeacher, id, courseUsers}: {type: string, isTeacher: boolean, id: number, courseUsers?: Array<User>}) {
+export default function Options({type, isTeacher, id, courseUsers, courseData}: {type: string, isTeacher: boolean, id: number, courseUsers?: Array<User>, courseData?:CourseData}) {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
 
     const handleDropdownToggle = () => {
         setDropdownOpen((prev) => !prev);
     };
+
+    const definedCourse = courseData || {id:0, color:"pink", teacher_id:0, teacher_name:"", name:"", join_key:"" }
 
     const typeSwitch = () =>{
         switch (type) {
@@ -32,7 +35,7 @@ export default function Options({type, isTeacher, id, courseUsers}: {type: strin
             )}
             {isDropdownOpen && (
                 <div className="absolute top-full right-0 mt-2 w-40 bg-white shadow-lg rounded-md">
-                    {type === "course" ? <CourseDropdown isTeacher={isTeacher} course_id={id} courseUsers={courseUsers} /> : <PostDropdown isTeacher={isTeacher} post_id={id} />}
+                    {type === "course" ? <CourseDropdown isTeacher={isTeacher} courseData={definedCourse} courseUsers={courseUsers} /> : <PostDropdown isTeacher={isTeacher} post_id={id} />}
                 </div>
             )}
         </div>

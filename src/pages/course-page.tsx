@@ -2,7 +2,7 @@ import Post from "@/components/post/post";
 import {CourseData} from "@/types/Course";
 import {CoursePost} from "@/types/Post";
 import Options from "@/components/options/options";
-import NewPost from "@/components/post/new-post";
+import NewPostButton from "@/components/post/new-post-button";
 import {User} from "@/types/User";
 
 interface CoursePageProps {
@@ -19,17 +19,17 @@ export default function CoursePage({ courseData, coursePosts, cookiesID, courseU
             <div className="w-2/3">
                 <div className={`bg-primary_${courseData.color} w-full h-56 p-3 mb-4 rounded-lg flex flex-col-reverse justify-between`}>
                     <div className="flex justify-between items-center">
-                        <p className="text-white font-bold text-3xl">{courseData.name}</p>
+                        <p className="text-white font-bold text-3xl w-4/12">{courseData.name}</p>
                         {courseData.teacher_id === cookiesID && (
-                            <p className="text-white font-bold text-xl">{`Join Key: ${courseData.join_key}`}</p>
+                            <p className="text-white font-bold text-xl text-center w-4/12">{`Join Key: ${courseData.join_key}`}</p>
                         )}
-                        <p className={`text-white font-bold`}>{courseData.teacher_name}</p>
+                        <p className={`text-white font-bold w-4/12 text-right`}>{courseData.teacher_name}</p>
                     </div>
-                    <Options type={"course"} isTeacher={courseData.teacher_id === cookiesID} id={courseData.id} courseUsers={courseUsers}  />
+                    <Options type={"course"} isTeacher={courseData.teacher_id === cookiesID} id={courseData.id} courseUsers={courseUsers} courseData={courseData}  />
                 </div>
                 <div>
                     {courseData.teacher_id === cookiesID && (
-                        <NewPost courseData={courseData} />
+                        <NewPostButton courseData={courseData} />
                     )}
                     {!coursePosts.length && (
                         <p className="w-full text-3xl text-center font-semibold">There are no posts for now</p>

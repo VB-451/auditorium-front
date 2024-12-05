@@ -1,7 +1,7 @@
 import {CoursePost} from "@/types/Post";
 import Image from "next/image";
 import Link from "next/link";
-import {formatDate} from "@/utils/formatDate";
+import {formatDate} from "@/utils/common/formatDate";
 
 interface PostProps {
     data: CoursePost;

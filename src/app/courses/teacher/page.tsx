@@ -1,5 +1,5 @@
 import CoursesPage from "@/pages/courses-page";
-import {fetchCoursesBy} from "@/utils/fetchCoursesBy";
+import {fetchCoursesBy} from "@/utils/courses/fetchCoursesBy";
 import {cookies} from "next/headers";
 import NotFound from "@/app/not-found";
 import {redirect} from "next/navigation";

@@ -1,16 +1,17 @@
 import {useState} from "react";
 import Confirmation from "@/components/confirmation/confirmation";
 import Modal from "@/components/modal/modal";
-import {deleteCourse} from "@/utils/deleteCourse";
-import {getCookie} from "@/utils/getCookie";
-import {deleteEnroll} from "@/utils/deleteEnroll";
+import {deleteCourse} from "@/utils/courses/deleteCourse";
+import {getCookie} from "@/utils/common/getCookie";
+import {deleteEnroll} from "@/utils/enrollments/deleteEnroll";
 import {useRouter} from "next/navigation";
-import EditCourse from "@/components/edit-course/edit-course";
 import Students from "@/components/students/students";
-import KeyGenerate from "@/components/key-generate/key-generate";
 import {User} from "@/types/User";
+import {newJoinKey} from "@/utils/courses/newJoinKey";
+import AlterCourse from "@/components/alter-course/alter-course";
+import {CourseData} from "@/types/Course";
 
-export default function CourseDropdown({isTeacher, course_id, courseUsers} : {isTeacher: boolean, course_id: number, courseUsers?: Array<User>}) {
+export default function CourseDropdown({isTeacher, courseData, courseUsers} : {isTeacher: boolean, courseData: CourseData, courseUsers?: Array<User>}) {
     const router = useRouter();
 
     const [isOn, setIsOn] = useState(false);
@@ -25,17 +26,21 @@ export default function CourseDropdown({isTeacher, course_id, courseUsers} : {is
 
     const componentType = (()=>{
         switch (type){
-            case "edit": return <EditCourse />;
-            case "students": return <Students courseUsers={courseUsers} />;
-            case "join_key": return <KeyGenerate />;
+            case "edit": return <AlterCourse type={"put"} courseData={courseData} action={toggleOn} />;
+            case "students": return <Students courseUsers={courseUsers} isTeacher={isTeacher} course_id={courseData.id} />;
             case "delete": return <Confirmation question={"The course and all of its posts will be deleted"}
-                                                confirmName={"Delete course"} executeFunction={deleteCourse} toggle={toggleOn} id={course_id} />;
+                                                confirmName={"Delete course"} executeFunction={deleteCourse} toggle={toggleOn} id={courseData.id} />;
         }
     })
 
     const handleDeleteEnroll = async () => {
-        await deleteEnroll(user_id, course_id, token);
+        await deleteEnroll(user_id, courseData.id, token);
         router.push("/courses/student")
+    }
+
+    const handleNewJoinKey = async () => {
+        await newJoinKey(courseData.id, token);
+        router.refresh()
     }
     return (
         <>
@@ -57,10 +62,7 @@ export default function CourseDropdown({isTeacher, course_id, courseUsers} : {is
                             Students
                         </li>
                         <li className="p-2 hover:bg-gray-100 cursor-pointer rounded-md font-semibold text-primary_purple"
-                            onClick={() => {
-                                setType("join_key");
-                                toggleOn();
-                            }}>
+                            onClick={handleNewJoinKey}>
                             New Join Key
                         </li>
                         <li className="p-2 hover:bg-gray-100 cursor-pointer rounded-md font-semibold text-primary_pink"

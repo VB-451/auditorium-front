@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import React, {useEffect, useState} from "react";
 import { usePathname } from "next/navigation";
-import {getCookie} from "@/utils/getCookie";
+import {getCookie} from "@/utils/common/getCookie";
 
 export default function Sidebar() {
 

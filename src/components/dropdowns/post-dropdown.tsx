@@ -3,7 +3,7 @@
 import {useState} from "react";
 import Modal from "@/components/modal/modal";
 import Confirmation from "@/components/confirmation/confirmation";
-import {deletePost} from "@/utils/deletePost";
+import {deletePost} from "@/utils/posts/deletePost";
 import EditPost from "@/components/edit-post/edit-post";
 
 export default function PostDropdown({isTeacher, post_id} : {isTeacher: boolean, post_id: number}) {

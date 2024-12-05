@@ -1,6 +1,6 @@
 import Image from "next/image";
 import {User} from "@/types/User";
-import {dateDiff} from "@/utils/dateDiff";
+import {dateDiff} from "@/utils/common/dateDiff";
 
 export default async function AbsentSubmission({userData , deadline} : {userData: User, deadline: Date}){
     const isLate = new Date() > new Date(deadline);

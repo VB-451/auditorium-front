@@ -4,6 +4,7 @@ import Image from "next/image";
 import {useState} from "react";
 import Modal from "@/components/modal/modal";
 import Enroll from "@/components/enroll/enroll";
+import AlterCourse from "@/components/alter-course/alter-course";
 
 export default function NewCoursePreview({type} : {type: string}) {
     const [isOn, setIsOn] = useState(false);
@@ -21,7 +22,7 @@ export default function NewCoursePreview({type} : {type: string}) {
                 <Image src="/add.svg" alt="add" width={120} height={0}/>
             </button>
             <Modal isOpen={isOn} action={toggleOn}>
-                {type === "student" ? <Enroll /> : ""}
+                {type === "student" ? <Enroll /> : <AlterCourse type="post" />}
             </Modal>
         </>
     )
