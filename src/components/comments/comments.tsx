@@ -29,7 +29,7 @@ export default function Comments({ commentsData, teacherName, type, id, userID, 
     }
 
     return (
-        <div className="w-8/12 px-8">
+        <div className="w-8/12 mt-4">
             <p className="font-semibold text-lg mb-5">{`Comments: (${commentsData.length})`}</p>
             <div className="max-h-80 h-fit overflow-auto mb-4">
                 {commentsData.map((comment: CommentInterface) => (

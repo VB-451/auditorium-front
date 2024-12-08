@@ -3,6 +3,8 @@ import Submission from "@/components/submission/submission";
 import {User} from "@/types/User";
 import AbsentSubmission from "@/components/submission/absent-submission";
 import {CoursePost} from "@/types/Post";
+import Link from "next/link";
+import {shortenText} from "@/utils/common/shortenText";
 
 interface SubmissionProps {
     submissionsData: SubmissionInterface[],
@@ -15,13 +17,13 @@ export default function SubmissionsPage({submissionsData, notSubmittedData, post
         <section className="flex flex-col justify-center items-center mb-5">
             <div className={`bg-primary_purple w-2/3 h-16 p-4 mb-3 rounded-lg flex flex-row justify-between items-center`}>
                 <div className={"flex items-center flex-grow"}>
-                    {/*<Link className={"mr-2"} href={`/course/${courseData.id}`}>*/}
-                    {/*    <p className="text-white font-bold text-xl hover:underline">{courseData.name}</p>*/}
-                    {/*</Link>*/}
-                    {/*<Link className={"mr-2"} href={`/course/${courseData.id}/post/${submissionsData[0].post_id || null}`}>*/}
-                    {/*    <p className="text-white font-bold text-xl hover:underline">{`> ${shortenText("title", 30)}`}</p>*/}
-                    {/*</Link>*/}
-                    {/*<p className="text-white font-bold text-xl">{`> Submissions`}</p>*/}
+                    <Link className={"mr-2"} href={`/course/${postData.course_id}`}>
+                        <p className="text-white font-bold text-xl hover:underline">Course</p>
+                    </Link>
+                    <Link className={"mr-2"} href={`/course/${postData.course_id}/post/${postData.id}`}>
+                        <p className="text-white font-bold text-xl hover:underline">{`> ${shortenText(postData.title, 30)}`}</p>
+                    </Link>
+                    <p className="text-white font-bold text-xl">{`> Submissions`}</p>
                 </div>
             </div>
             <div className="w-2/3 flex flex-col justify-start items-start mb-5">

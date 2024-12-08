@@ -6,8 +6,9 @@ import CourseDropdown from "@/components/dropdowns/course-dropdown";
 import PostDropdown from "@/components/dropdowns/post-dropdown";
 import {User} from "@/types/User";
 import {CourseData} from "@/types/Course";
+import {CoursePost} from "@/types/Post";
 
-export default function Options({type, isTeacher, id, courseUsers, courseData}: {type: string, isTeacher: boolean, id: number, courseUsers?: Array<User>, courseData?:CourseData}) {
+export default function Options({type, isTeacher, courseUsers, courseData, postData}: {type: string, isTeacher: boolean, courseUsers?: Array<User>, courseData?:CourseData ,postData?:CoursePost}) {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
 
     const handleDropdownToggle = () => {
@@ -35,7 +36,9 @@ export default function Options({type, isTeacher, id, courseUsers, courseData}: 
             )}
             {isDropdownOpen && (
                 <div className="absolute top-full right-0 mt-2 w-40 bg-white shadow-lg rounded-md">
-                    {type === "course" ? <CourseDropdown isTeacher={isTeacher} courseData={definedCourse} courseUsers={courseUsers} /> : <PostDropdown isTeacher={isTeacher} post_id={id} />}
+                    {type === "course"
+                        ? <CourseDropdown isTeacher={isTeacher} courseData={definedCourse} courseUsers={courseUsers} />
+                        : <PostDropdown isTeacher={isTeacher} postData={postData} />}
                 </div>
             )}
         </div>

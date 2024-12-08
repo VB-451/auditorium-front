@@ -4,9 +4,10 @@ import {useState} from "react";
 import Modal from "@/components/modal/modal";
 import Confirmation from "@/components/confirmation/confirmation";
 import {deletePost} from "@/utils/posts/deletePost";
-import EditPost from "@/components/edit-post/edit-post";
+import AlterPost from "@/components/post/alter-post";
+import {CoursePost} from "@/types/Post";
 
-export default function PostDropdown({isTeacher, post_id} : {isTeacher: boolean, post_id: number}) {
+export default function PostDropdown({isTeacher, postData} : {isTeacher: boolean, postData?:CoursePost}) {
     const [isOn, setIsOn] = useState(false);
     const [type, setType] = useState("");
 
@@ -38,9 +39,9 @@ export default function PostDropdown({isTeacher, post_id} : {isTeacher: boolean,
             </ul>
             <Modal isOpen={isOn} action={toggleOn}>
                 {type === "edit"
-                    ? <EditPost />
+                    ? <AlterPost alterType={"edit"} postData={postData} toggle={toggleOn} />
                     : <Confirmation question={"The post and all of its comments and submissions will be deleted"}
-                                    confirmName={"Delete post"} executeFunction={deletePost} toggle={toggleOn} id={post_id} />}
+                                    confirmName={"Delete post"} executeFunction={deletePost} toggle={toggleOn} id={postData?.id} />}
             </Modal>
         </>
     )

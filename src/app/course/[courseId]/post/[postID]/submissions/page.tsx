@@ -1,13 +1,13 @@
 import SubmissionsPage from "@/pages/submissions-page";
 import {fetchPostData} from "@/utils/posts/fetchPostData";
-import {fetchSubmissionsData} from "@/utils/fetchSubmissionsData";
+import {fetchSubmissionsData} from "@/utils/submissions/fetchSubmissionsData";
 import {fetchUsersNotSubmittedToPost} from "@/utils/posts/fetchUsersNotSubmittedToPost";
 import {cookies} from "next/headers";
 import NotFound from "@/app/not-found";
 import {redirect} from "next/navigation";
 
-export default async function SubmissionsPageServer({ params }: { params: { postID: string, courseId: string } }){
-    const { postID, courseId } = await params;
+export default async function SubmissionsPageServer({ params }: { params: { postID: string }}){
+    const { postID } = params;
     const cookieStore = await cookies();
     const submissionsData = await fetchSubmissionsData(postID, cookieStore.get("accessToken")?.value);
     if (submissionsData.statusCode === 404){

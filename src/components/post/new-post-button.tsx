@@ -21,7 +21,7 @@ export default function NewPostButton({courseData} : {courseData: CourseData}) {
                 <Image src="/add.svg" alt="add" width={50} height={0}/>
             </button>
             <Modal isOpen={isOn} action={toggleOn}>
-                <AlterPost alterType={"create"}/>
+                <AlterPost alterType={"create"} course_id={courseData.id} />
             </Modal>
         </>
 

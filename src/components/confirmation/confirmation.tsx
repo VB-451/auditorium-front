@@ -6,7 +6,7 @@ interface ConfirmationProps {
     confirmName: string,
     executeFunction: (id: number, token: string | undefined)=> Promise<string>,
     toggle: () => void,
-    id: number;
+    id: number | undefined;
 }
 
 export default function Confirmation({question, confirmName, executeFunction, toggle, id} : ConfirmationProps) {
@@ -16,7 +16,7 @@ export default function Confirmation({question, confirmName, executeFunction, to
     const pathname = usePathname();
 
     const handleDelete = async () =>{
-        const response = await executeFunction(id, token);
+        const response = await executeFunction(id || 0, token);
         if(pathname){
             if(response === "post"){
                 router.push(`/course/${pathname.split("/")[2]}`);

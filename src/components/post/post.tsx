@@ -19,7 +19,7 @@ export default function Post({ data, courseId }: PostProps) {
                </div>
                 <div>
                     <p className={`font-bold`}>{data.title}</p>
-                    <p>{formatDate(data.created_at.toString())}</p>
+                    <p>{formatDate(data.created_at.toString(), "")}</p>
                 </div>
             </div>
         </Link>

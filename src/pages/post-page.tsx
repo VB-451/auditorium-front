@@ -4,23 +4,24 @@ import {CoursePost} from "@/types/Post";
 import {formatDate} from "@/utils/common/formatDate";
 import Link from "next/link";
 import Options from "@/components/options/options";
-
+import {dateDiff} from "@/utils/common/dateDiff";
+import {shortenText} from "@/utils/common/shortenText";
 
 export default async function PostPage({ postData, cookieName }: { postData: CoursePost, cookieName: string | undefined }) {
+    const isLate = new Date() > new Date(postData.deadline) ? "passed" : "left"
 
     return (
         <section className="flex flex-col justify-center items-center mb-5">
             <div className={`bg-primary_blue w-2/3 h-16 p-4 mb-3 rounded-lg flex flex-row justify-between items-center`}>
-                {/*<div className={"flex items-center flex-grow"}>*/}
-                {/*    <Link className={"mr-2"} href={`/course/${courseData.id}`}>*/}
-                {/*        <p className="text-white font-bold text-xl hover:underline">{courseData.name}</p>*/}
-                {/*    </Link>*/}
-                {/*    <p className="text-white font-bold text-xl">{`> ${shortenText(postData.title, 30)}`}</p>*/}
-                {/*</div>*/}
-                {/*<p className={`text-white font-bold`}>{courseData.teacher_name}</p>*/}
+                <div className={"flex items-center flex-grow"}>
+                    <Link className={"mr-2"} href={`/course/${postData.course_id}`}>
+                        <p className="text-white font-bold text-xl hover:underline">Course</p>
+                    </Link>
+                    <p className="text-white font-bold text-xl">{`> ${shortenText(postData.title, 30)}`}</p>
+                </div>
             </div>
-            <div className="bg-white h-fit w-2/3 rounded-xl flex justify-start flex-col">
-                <div className="w-full h-fit flex items-center px-7 py-4">
+            <div className="bg-white h-fit w-2/3 rounded-xl px-7 py-4 flex flex-col">
+                <div className="w-full h-fit flex items-center">
                     <div className="flex items-center flex-grow">
                         <div
                             className="bg-primary_green min-w-12 min-h-10 flex items-center justify-center rounded-full mr-7">
@@ -31,35 +32,40 @@ export default async function PostPage({ postData, cookieName }: { postData: Cou
                             />
                         </div>
                         <div className="flex flex-col">
-                            <p className="text-2xl mb-1">{postData.title}</p>
-                            <p>{formatDate(postData.created_at.toString())}</p>
+                            <p className="text-2xl">{postData.title}</p>
+                            <p className="mt-1">{`${formatDate(postData.edited_at ? postData.edited_at.toString() : postData.created_at.toString(), "hour")}`}</p>
                         </div>
                     </div>
                     {postData.type === "HOMEWORK" && (
-                        <div className="w-full max-w-64  flex justify-center items-center">
+                        <div className="w-fit flex items-center justify-between">
                             {!(cookieName === postData.teacher_name) ? (
-                                <button
-                                    className="bg-primary_green text-white text-xl font-bold px-3 py-2 rounded">Submit
-                                    Homework
-                                </button>
+                                <>
+                                    <p className="mr-3 font-semibold text-primary_purple">
+                                        {dateDiff(new Date().toString(), postData.deadline.toString(), isLate)}
+                                    </p>
+                                    <button
+                                        className="bg-primary_green text-white text-xl font-bold px-3 py-2 rounded">Submit
+                                        Homework
+                                    </button>
+                                </>
                             ) : (
                                 <Link href={`/course/${postData.course_id}/post/${postData.id}/submissions`}>
                                     <button
-                                        className="bg-primary_green text-white text-xl font-bold px-3 py-2 rounded">View
+                                        className="mr-3 bg-primary_green text-white text-xl font-bold px-3 py-2 rounded">View
                                         Submissions
                                     </button>
                                 </Link>
                             )}
+                            <Options type="post" isTeacher={postData.teacher_name === cookieName} postData={postData}/>
                         </div>
                     )}
-                    <Options type="post" isTeacher={postData.teacher_name === cookieName} id={postData.id}/>
                 </div>
                 <div className="flex justify-center items-center w-full">
-                    <div className="w-[95%] h-[1px] bg-gray-200 mb-6"/>
+                    <div className="w-full h-[1px] bg-gray-200 mt-5"/>
                 </div>
-                <div className="flex w-full pl-8 mb-6"><p>{postData.content}</p></div>
+                <div className="flex w-full mt-4 pl-1"><p>{postData.content}</p></div>
                 <div className="flex justify-center items-center w-full">
-                    <div className="w-[95%] h-[1px] bg-gray-200 mb-6"/>
+                    <div className="w-full h-[1px] bg-gray-200 mt-4"/>
                 </div>
                 <CommentsServer id={postData.id} teacherName={postData.teacher_name} type={"post"}/>
             </div>
