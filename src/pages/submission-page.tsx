@@ -50,7 +50,7 @@ export default function SubmissionPage({submissionData, markInterval, deadline, 
                     <SubmissionMark submissionData={submissionData} markInterval={markInterval} isTeacher={isTeacher} token={token}/>
                 </div>
                 <div className="w-full h-[1px] bg-gray-200 mt-3"/>
-                <p className="w-full text-left mt-4 pl-1">{submissionData.content}</p>
+                <p className="w-full text-left mt-4 pl-1 whitespace-break-spaces">{submissionData.content}</p>
                 <div className="w-full h-[1px] bg-gray-200 mt-3"/>
                 <CommentsServer id={submissionData.id} teacherName={""} type={"submission"}/>
             </div>

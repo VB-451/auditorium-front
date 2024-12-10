@@ -27,7 +27,7 @@ export default function Comment({ comment, teacherName, username, token } : { co
                         <p className="text-primary_green font-semibold">[teacher]</p>
                     )}
                 </div>
-                <p>{comment.content}</p>
+                <p className="whitespace-break-spaces">{comment.content}</p>
             </div>
             {(teacherName === username || username === comment.user_name) && (
                 <button className="mr-4 opacity-0 group-hover:opacity-100 transition-opacity" onClick={handleCommentDelete}>

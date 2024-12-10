@@ -7,7 +7,7 @@ import Options from "@/components/options/options";
 import {dateDiff} from "@/utils/common/dateDiff";
 import {shortenText} from "@/utils/common/shortenText";
 
-export default async function PostPage({ postData, cookieName }: { postData: CoursePost, cookieName: string | undefined }) {
+export default async function PostPage({ postData, cookieName, submission }: { postData: CoursePost, cookieName: string | undefined, submission: {id: number, mark: number} }) {
     const isLate = new Date() > new Date(postData.deadline) ? "passed" : "left"
 
     return (
@@ -40,17 +40,34 @@ export default async function PostPage({ postData, cookieName }: { postData: Cou
                         <div className="w-fit flex items-center justify-between">
                             {!(cookieName === postData.teacher_name) ? (
                                 <>
-                                    <p className="mr-3 font-semibold text-primary_purple">
-                                        {dateDiff(new Date().toString(), postData.deadline.toString(), isLate)}
-                                    </p>
-                                    <button
-                                        className="bg-primary_green text-white text-xl font-bold px-3 py-2 rounded">Submit
-                                        Homework
-                                    </button>
+                                    {!submission.id && (
+                                        <>
+                                            <p className="mr-3 font-semibold text-primary_purple">
+                                                {dateDiff(new Date().toString(), postData.deadline.toString(), isLate)}
+                                            </p>
+                                            <button
+                                                className="bg-primary_green text-white text-xl font-bold px-3 py-2 rounded">Submit
+                                                Homework
+                                            </button>
+                                        </>
+                                    )}
+                                    {submission.id && (
+                                        <>
+                                            <p className="text-lg text-primary_green font-semibold px-0.5 bg-gray-100 rounded-r">
+                                                {`${submission.mark}/${postData.mark_interval}`}
+                                            </p>
+                                            <Link href={`${postData.id}/submissions/${submission.id}`}>
+                                                <button
+                                                    className="bg-primary_green ml-2 text-white text-xl font-bold px-3 py-2 rounded">
+                                                    View Submission
+                                                </button>
+                                            </Link>
+                                        </>
+                                    )}
                                 </>
                             ) : (
                                 <Link href={`/course/${postData.course_id}/post/${postData.id}/submissions`}>
-                                    <button
+                                <button
                                         className="mr-3 bg-primary_green text-white text-xl font-bold px-3 py-2 rounded">View
                                         Submissions
                                     </button>
@@ -63,7 +80,7 @@ export default async function PostPage({ postData, cookieName }: { postData: Cou
                 <div className="flex justify-center items-center w-full">
                     <div className="w-full h-[1px] bg-gray-200 mt-5"/>
                 </div>
-                <div className="flex w-full mt-4 pl-1"><p>{postData.content}</p></div>
+                <div className="flex w-full mt-4 pl-1 whitespace-break-spaces"><p>{postData.content}</p></div>
                 <div className="flex justify-center items-center w-full">
                     <div className="w-full h-[1px] bg-gray-200 mt-4"/>
                 </div>

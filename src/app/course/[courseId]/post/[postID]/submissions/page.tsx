@@ -7,7 +7,7 @@ import NotFound from "@/app/not-found";
 import {redirect} from "next/navigation";
 
 export default async function SubmissionsPageServer({ params }: { params: { postID: string }}){
-    const { postID } = params;
+    const { postID } = await params;
     const cookieStore = await cookies();
     const submissionsData = await fetchSubmissionsData(postID, cookieStore.get("accessToken")?.value);
     if (submissionsData.statusCode === 404){
