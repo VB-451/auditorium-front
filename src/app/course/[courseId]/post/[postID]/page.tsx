@@ -1,4 +1,4 @@
-import PostPage from "@/pages/post-page";
+import PostPage from "@/pages-components/post-page";
 import NotFound from "@/app/not-found";
 import {fetchPostData} from "@/utils/posts/fetchPostData";
 import {cookies} from "next/headers";

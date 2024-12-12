@@ -99,7 +99,8 @@ export default function AlterPost({alterType, postData, course_id, toggle} : {al
                     </div>
                 )}
                 <button className="mt-auto bg-primary_green text-white font-semibold py-1 px-2 rounded"
-                onClick={alterType === "create" ? handleCreatePost : handleUpdatePost}>
+                onClick={alterType === "create" ? handleCreatePost : handleUpdatePost}
+                disabled={!(title || content)}>
                     {alterType === "create" ? "Create" : "Update"}
                 </button>
             </div>

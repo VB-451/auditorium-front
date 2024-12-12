@@ -1,4 +1,4 @@
-import SubmissionsPage from "@/pages/submissions-page";
+import SubmissionsPage from "@/pages-components/submissions-page";
 import {fetchPostData} from "@/utils/posts/fetchPostData";
 import {fetchSubmissionsData} from "@/utils/submissions/fetchSubmissionsData";
 import {fetchUsersNotSubmittedToPost} from "@/utils/posts/fetchUsersNotSubmittedToPost";

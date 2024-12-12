@@ -2,7 +2,7 @@ import {cookies} from "next/headers";
 import {fetchSubmissionData} from "@/utils/submissions/fetchSubmissionData";
 import NotFound from "@/app/not-found";
 import {redirect} from "next/navigation";
-import SubmissionPage from "@/pages/submission-page";
+import SubmissionPage from "@/pages-components/submission-page";
 import {fetchPostData} from "@/utils/posts/fetchPostData";
 
 export default async function SubmissionPageServer({ params }: {params: {submissionID: string, postID: string, courseId: string}}) {

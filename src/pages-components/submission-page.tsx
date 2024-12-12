@@ -4,6 +4,7 @@ import {dateDiff} from "@/utils/common/dateDiff";
 import CommentsServer from "@/components/comments/comments-server";
 import SubmissionMark from "@/components/submission/submission-mark";
 import Link from "next/link";
+import Options from "@/components/options/options";
 
 export default function SubmissionPage({submissionData, markInterval, deadline, courseId, isTeacher, token} : {submissionData: SubmissionInterface, markInterval: number, deadline: Date, courseId:string, isTeacher:boolean, token: string | undefined}) {
 
@@ -48,6 +49,9 @@ export default function SubmissionPage({submissionData, markInterval, deadline, 
                         </p>
                     </div>
                     <SubmissionMark submissionData={submissionData} markInterval={markInterval} isTeacher={isTeacher} token={token}/>
+                    {!isTeacher && (
+                        <Options type={"submission"} isTeacher={false} submissionData={submissionData} />
+                    )}
                 </div>
                 <div className="w-full h-[1px] bg-gray-200 mt-3"/>
                 <p className="w-full text-left mt-4 pl-1 whitespace-break-spaces">{submissionData.content}</p>

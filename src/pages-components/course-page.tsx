@@ -25,7 +25,7 @@ export default function CoursePage({ courseData, coursePosts, cookiesID, courseU
                         )}
                         <p className={`text-white font-bold w-4/12 text-right`}>{courseData.teacher_name}</p>
                     </div>
-                    <Options type={"course"} isTeacher={courseData.teacher_id === cookiesID} id={courseData.id} courseUsers={courseUsers} courseData={courseData}  />
+                    <Options type={"course"} isTeacher={courseData.teacher_id === cookiesID} courseUsers={courseUsers} courseData={courseData}  />
                 </div>
                 <div>
                     {courseData.teacher_id === cookiesID && (

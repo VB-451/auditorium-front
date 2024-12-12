@@ -6,6 +6,7 @@ import Link from "next/link";
 import Options from "@/components/options/options";
 import {dateDiff} from "@/utils/common/dateDiff";
 import {shortenText} from "@/utils/common/shortenText";
+import NewSubmissionButton from "@/components/submission/new-submission-button";
 
 export default async function PostPage({ postData, cookieName, submission }: { postData: CoursePost, cookieName: string | undefined, submission: {id: number, mark: number} }) {
     const isLate = new Date() > new Date(postData.deadline) ? "passed" : "left"
@@ -45,16 +46,13 @@ export default async function PostPage({ postData, cookieName, submission }: { p
                                             <p className="mr-3 font-semibold text-primary_purple">
                                                 {dateDiff(new Date().toString(), postData.deadline.toString(), isLate)}
                                             </p>
-                                            <button
-                                                className="bg-primary_green text-white text-xl font-bold px-3 py-2 rounded">Submit
-                                                Homework
-                                            </button>
+                                            <NewSubmissionButton postData={postData} />
                                         </>
                                     )}
                                     {submission.id && (
                                         <>
                                             <p className="text-lg text-primary_green font-semibold px-0.5 bg-gray-100 rounded-r">
-                                                {`${submission.mark}/${postData.mark_interval}`}
+                                                {`${submission.mark ? submission.mark : "?"}/${postData.mark_interval}`}
                                             </p>
                                             <Link href={`${postData.id}/submissions/${submission.id}`}>
                                                 <button

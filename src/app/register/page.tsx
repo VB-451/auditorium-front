@@ -1,4 +1,4 @@
-import RegisterPage from "@/pages/register-page";
+import RegisterPage from "@/pages-components/register-page";
 
 export default async function RegisterPageServer(){
     return (

@@ -20,8 +20,10 @@ export default function Confirmation({question, confirmName, executeFunction, to
         if(pathname){
             if(response === "post"){
                 router.push(`/course/${pathname.split("/")[2]}`);
-            } else if(response === "course"){
+            } else if (response === "course"){
                 router.push("/courses/teacher")
+            } else {
+                router.push(`/course/${pathname.split("/")[2]}/post/${pathname.split("/")[4]}`)
             }
         }
     }

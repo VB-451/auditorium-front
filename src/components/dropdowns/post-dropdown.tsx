@@ -41,7 +41,7 @@ export default function PostDropdown({isTeacher, postData} : {isTeacher: boolean
                 {type === "edit"
                     ? <AlterPost alterType={"edit"} postData={postData} toggle={toggleOn} />
                     : <Confirmation question={"The post and all of its comments and submissions will be deleted"}
-                                    confirmName={"Delete post"} executeFunction={deletePost} toggle={toggleOn} id={postData?.id} />}
+                                    confirmName={"Delete Post"} executeFunction={deletePost} toggle={toggleOn} id={postData?.id} />}
             </Modal>
         </>
     )

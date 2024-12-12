@@ -1,4 +1,4 @@
-import CoursePage from "@/pages/course-page";
+import CoursePage from "@/pages-components/course-page";
 import {fetchCourseData} from "@/utils/courses/fetchCourseData";
 import {fetchCoursePosts} from "@/utils/courses/fetchCoursePosts";
 import {cookies} from "next/headers";

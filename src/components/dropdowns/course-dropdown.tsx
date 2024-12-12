@@ -29,7 +29,7 @@ export default function CourseDropdown({isTeacher, courseData, courseUsers} : {i
             case "edit": return <AlterCourse type={"put"} courseData={courseData} action={toggleOn} />;
             case "students": return <Students courseUsers={courseUsers} isTeacher={isTeacher} course_id={courseData.id} />;
             case "delete": return <Confirmation question={"The course and all of its posts will be deleted"}
-                                                confirmName={"Delete course"} executeFunction={deleteCourse} toggle={toggleOn} id={courseData.id} />;
+                                                confirmName={"Delete Course"} executeFunction={deleteCourse} toggle={toggleOn} id={courseData.id} />;
         }
     })
 
