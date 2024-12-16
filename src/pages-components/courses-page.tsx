@@ -12,12 +12,17 @@ export default function CoursesPage({ data, type } : HomeProps ) {
     return (
         <>
             <section className={`w-full flex flex-row flex-wrap max-w-[95%]`}>
+                {data.length > 3 && (
+                    <NewCoursePreview type={type} />
+                )}
                 {data.map((course: CourseData) => {
                     return (
                         <CoursePreviewServer key={course.id} data={course} />
                     );
                 })}
-                <NewCoursePreview type={type} />
+                {data.length <= 3 && (
+                    <NewCoursePreview type={type} />
+                )}
             </section>
         </>
     );

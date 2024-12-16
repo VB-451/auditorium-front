@@ -19,7 +19,7 @@ export default function SubmissionMark({submissionData, markInterval, isTeacher,
 
     const inputWidth = (() =>{
         switch(mark.length) {
-            case 0: return "w-24 pr-0.5";
+            case 0: return "w-[103px] pr-0.5";
             case 1: return "w-4";
             case 2: return "w-6";
             case 3: return "w-9";
@@ -28,7 +28,7 @@ export default function SubmissionMark({submissionData, markInterval, isTeacher,
 
     return (
         <div className="flex items-center">
-            <input type="text" readOnly={!isTeacher} value={mark} onChange={handleMarkChange} placeholder={`Unmarked`}
+            <input type="text" readOnly={!isTeacher} value={mark} onChange={handleMarkChange} placeholder={`Not Marked`}
                    className={`${inputWidth()} bg-gray-100 text-primary_green font-semibold text-right rounded-l text-lg outline-0`}/>
             <p className="text-lg text-primary_green font-semibold pr-1 bg-gray-100 rounded-r">/{markInterval}</p>
             {isTeacher && (

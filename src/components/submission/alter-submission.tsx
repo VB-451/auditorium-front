@@ -31,8 +31,9 @@ export default function AlterSubmission({alterType, submissionData, postData, to
             <textarea placeholder="Content"
                       className="bg-gray-100 rounded w-full h-5/6 py-1 px-2 text outline-0 resize-none"
                       onChange={(e) => setContent(e.target.value)} value={content}/>
-            <button className={`text-white text-xl font-semibold py-1 px-2 rounded ${content.length ? "bg-primary_green" : "bg-gray-300"}`}
-            onClick={alterType === "create" ? handleCreateSubmission : handleUpdateSubmission}>
+            <button className={`text-white text-xl font-semibold py-1 px-2 rounded ${content.length >= 3  ? "bg-primary_green" : "bg-gray-300"}`}
+            onClick={alterType === "create" ? handleCreateSubmission : handleUpdateSubmission}
+            disabled={content.length < 3}>
                 {alterType === "create" ? "Submit" : "Update"}
             </button>
         </div>
