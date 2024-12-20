@@ -16,7 +16,7 @@ export default function NewCoursePreview({type} : {type: string}) {
     return (
         <>
             <button
-                className={`w-1/5 max-w-72 min-w-64 h-72 m-3 bg-primary_green rounded-xl flex flex-col justify-evenly items-center transition-transform transform hover:scale-[1.01]`}
+                className={`w-1/5 max-w-72 min-w-64 h-72 mr-6 mt-3 bg-primary_green rounded-xl flex flex-col justify-evenly items-center transition-transform transform hover:scale-[1.01]`}
                 onClick={toggleOn}>
                 <p className="text-white font-semibold text-2xl text-center mt-5">{type === "student" ? "Enroll to a new course" : "Create a new course"}</p>
                 <Image src="/add.svg" alt="add" width={120} height={0}/>
