@@ -14,6 +14,7 @@ export async function middleware(request: NextRequest) {
 
         await jwtVerify(token.value, secret);
         return NextResponse.next();
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
         return NextResponse.redirect(new URL('/login', request.url));
     }

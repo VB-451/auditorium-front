@@ -5,8 +5,8 @@ import {loginFetch} from "@/utils/login";
 
 export default function LoginPage() {
 
-    const [login, setLogin] = useState("Margaret Willson");
-    const [password, setPassword] = useState("abc123qwe");
+    const [login, setLogin] = useState("");
+    const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [wrongCredentials, setWrongCredentials] = useState(false);
 
