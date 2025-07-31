@@ -8,7 +8,7 @@ import {fetchCourseUsers} from "@/utils/courses/fetchCourseUsers";
 
 
 export default async function CoursePageServer({ params }: { params: { courseId: string } }) {
-    const { courseId } = await params;
+    const { courseId } = params;
     const cookieStore = await cookies();
     const courseData = await fetchCourseData(courseId, cookieStore.get("accessToken")?.value);
     if (courseData.statusCode === 404) {
