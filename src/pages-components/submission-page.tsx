@@ -5,12 +5,14 @@ import CommentsServer from "@/components/comments/comments-server";
 import SubmissionMark from "@/components/submission/submission-mark";
 import Link from "next/link";
 import Options from "@/components/options/options";
+import {FileData} from "@/types/FileData";
 
-export default function SubmissionPage({submissionData, markInterval, deadline, courseId, isTeacher, token} : {submissionData: SubmissionInterface, markInterval: number, deadline: Date, courseId:string, isTeacher:boolean, token: string | undefined}) {
+export default function SubmissionPage({submissionData, markInterval, deadline, courseId, isTeacher, token, fileData}:
+{submissionData: SubmissionInterface, markInterval: number, deadline: Date, courseId:string, isTeacher:boolean, token: string | undefined, fileData:FileData | null}) {
 
     const lastChanged = submissionData.edited_at || submissionData.created_at;
     const deadlinePassed = lastChanged > deadline;
-    
+
     return (
         <div className="w-full flex flex-col justify-center items-center">
             <div
@@ -50,12 +52,25 @@ export default function SubmissionPage({submissionData, markInterval, deadline, 
                     </div>
                     <SubmissionMark submissionData={submissionData} markInterval={markInterval} isTeacher={isTeacher} token={token}/>
                     {!isTeacher && (
-                        <Options type={"submission"} isTeacher={false} submissionData={submissionData} />
+                        <Options type={"submission"} isTeacher={false} submissionData={submissionData} fileData={fileData} />
                     )}
                 </div>
                 <div className="w-full h-[1px] bg-gray-200 mt-3"/>
                 <p className="w-full text-left mt-4 pl-1 whitespace-break-spaces">{submissionData.content}</p>
                 <div className="w-full h-[1px] bg-gray-200 mt-3"/>
+                {fileData && (
+                    <>
+                        <a href={`${process.env.NEXT_PUBLIC_BACK_HOST}/files/${fileData.local_filename}`} download
+                           target="_blank"
+                           className="mt-4 py-3 px-2 w-fit flex justify-between items-center rounded-md bg-gray-100 ">
+                            <Image src={"/file.svg"} alt={"file"} width={20} height={20}/>
+                            <div className="ml-1">{fileData.original_filename}</div>
+                        </a>
+                        <div className="flex justify-center items-center w-full">
+                            <div className="w-full h-[1px] bg-gray-200 mt-4"/>
+                        </div>
+                    </>
+                )}
                 <CommentsServer id={submissionData.id} teacherName={""} type={"submission"}/>
             </div>
         </div>

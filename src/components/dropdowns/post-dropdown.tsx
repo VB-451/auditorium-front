@@ -6,8 +6,9 @@ import Confirmation from "@/components/confirmation/confirmation";
 import {deletePost} from "@/utils/posts/deletePost";
 import AlterPost from "@/components/post/alter-post";
 import {CoursePost} from "@/types/Post";
+import {FileData} from "@/types/FileData";
 
-export default function PostDropdown({isTeacher, postData} : {isTeacher: boolean, postData?:CoursePost}) {
+export default function PostDropdown({isTeacher, postData, fileData} : {isTeacher: boolean, postData?:CoursePost, fileData?: FileData | null}) {
     const [isOn, setIsOn] = useState(false);
     const [type, setType] = useState("");
 
@@ -39,7 +40,7 @@ export default function PostDropdown({isTeacher, postData} : {isTeacher: boolean
             </ul>
             <Modal isOpen={isOn} action={toggleOn}>
                 {type === "edit"
-                    ? <AlterPost alterType={"edit"} postData={postData} toggle={toggleOn} />
+                    ? <AlterPost alterType={"edit"} postData={postData} toggle={toggleOn} fileData={fileData} />
                     : <Confirmation question={"The post and all of its comments and submissions will be deleted"}
                                     confirmName={"Delete Post"} executeFunction={deletePost} toggle={toggleOn} id={postData?.id} />}
             </Modal>

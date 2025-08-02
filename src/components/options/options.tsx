@@ -9,6 +9,7 @@ import {CourseData} from "@/types/Course";
 import {CoursePost} from "@/types/Post";
 import {SubmissionInterface} from "@/types/Submission";
 import SubmissionDropdown from "@/components/dropdowns/submission-dropdown";
+import {FileData} from "@/types/FileData";
 
 interface OptionProps{
     type: string,
@@ -17,9 +18,10 @@ interface OptionProps{
     courseData?:CourseData,
     postData?:CoursePost,
     submissionData?: SubmissionInterface
+    fileData?: FileData | null
 }
 
-export default function Options({type, isTeacher, courseUsers, courseData, postData, submissionData}: OptionProps) {
+export default function Options({type, isTeacher, courseUsers, courseData, postData, submissionData, fileData}: OptionProps) {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
 
     const handleDropdownToggle = () => {
@@ -39,8 +41,8 @@ export default function Options({type, isTeacher, courseUsers, courseData, postD
     const typeSwitch= ()=>{
         switch (type) {
             case "course": return <CourseDropdown isTeacher={isTeacher} courseData={definedCourse} courseUsers={courseUsers} />;
-            case "post": return <PostDropdown isTeacher={isTeacher} postData={postData} />;
-            case "submission": return <SubmissionDropdown submissionData={submissionData} />;
+            case "post": return <PostDropdown isTeacher={isTeacher} postData={postData} fileData={fileData}  />;
+            case "submission": return <SubmissionDropdown submissionData={submissionData} fileData={fileData} />;
         }
     }
 
