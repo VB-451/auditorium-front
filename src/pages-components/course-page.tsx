@@ -36,7 +36,7 @@ export default function CoursePage({ courseData, coursePosts, cookiesID, courseU
                     {!coursePosts.length && (
                         <p className="w-full text-3xl text-center font-semibold">There are no posts for now</p>
                     )}
-                    {coursePosts.length && (
+                    {coursePosts.length > 0 && (
                         <Posts coursePosts={coursePosts} courseId={courseData.id} />
                     )}
                 </div>
