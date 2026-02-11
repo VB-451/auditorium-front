@@ -19,8 +19,6 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
-  height: 100vh;
-  overflow: hidden;
 }
 
 

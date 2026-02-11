@@ -3,6 +3,9 @@ import localFont from "next/font/local";
 import "./globals.css";
 import NavbarServer from "@/components/navbar/navbar-server";
 import Sidebar from "@/components/sidebar/sidebar";
+import {LoadingProvider} from "@/providers/LoadingProvider";
+import {NotificationProvider} from "@/providers/NotificationProvider";
+
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -26,16 +29,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-    <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-    >
-      <NavbarServer/>
-      <Sidebar />
-      <main className="ml-10 pt-20 pl-10 pr-6 overflow-y-auto h-screen">
-        {children}
-      </main>
-    </body>
-    </html>
+      <html lang="en">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <div id="toast-root" className="fixed inset-0 z-[999999] pointer-events-none" />
+      <LoadingProvider>
+          <NotificationProvider>
+              <NavbarServer />
+              <Sidebar />
+              <main className="ml-10 pt-20 pl-10 pr-6 overflow-y-auto h-screen flex flex-col">
+                  {children}
+              </main>
+          </NotificationProvider>
+      </LoadingProvider>
+      </body>
+
+      </html>
+
   );
 }

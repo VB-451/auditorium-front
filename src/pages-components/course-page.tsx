@@ -5,6 +5,7 @@ import Options from "@/components/options/options";
 import NewPostButton from "@/components/post/new-post-button";
 import {User} from "@/types/User";
 import {shortenText} from "@/utils/common/shortenText";
+import Posts from "@/components/post/posts";
 
 interface CoursePageProps {
     courseData: CourseData;
@@ -35,9 +36,9 @@ export default function CoursePage({ courseData, coursePosts, cookiesID, courseU
                     {!coursePosts.length && (
                         <p className="w-full text-3xl text-center font-semibold">There are no posts for now</p>
                     )}
-                    {coursePosts.map((post) => (
-                        <Post key={post.id} data={post} courseId={courseData.id} located="course"/>
-                    ))}
+                    {coursePosts.length && (
+                        <Posts coursePosts={coursePosts} courseId={courseData.id} />
+                    )}
                 </div>
             </div>
         </section>

@@ -4,30 +4,45 @@ import {useModalContext} from "@/contexts/modal-context";
 import {useRouter} from "next/navigation";
 import {updateCourse} from "@/utils/courses/updateCourse";
 import {CourseData} from "@/types/Course";
+import {useLoading} from "@/providers/LoadingProvider";
+import {useNotification} from "@/providers/NotificationProvider";
+import {shortenText} from "@/utils/common/shortenText";
 
 export default function AlterCourse({type, courseData, action} : {type: string, courseData?: CourseData, action?:()=>void}) {
     const { user_id, username, token } = useModalContext();
     const router = useRouter();
     const [courseName, setCourseName] = useState(courseData?.name || "");
     const [selectedColor, setSelectedColor] = useState(courseData?.color || "pink");
-
-
     const colors = ["pink", "purple", "blue", "orange"]
+    const { showLoading, hideLoading } = useLoading();
+    const { notify } = useNotification();
+
 
     const handleCreateCourse = async (e: FormEvent) =>{
         e.preventDefault();
-        const create = await createCourse(courseName, selectedColor, user_id, username, token)
-        router.push(`/course/${create.id}`);
+        showLoading()
+        const createdCourse = await createCourse(courseName, selectedColor, user_id, username, token)
+        hideLoading()
+        if(createdCourse.id){
+            notify(`${shortenText(createdCourse.name, 30)} course created successfully.`, "success")
+            router.push(`/course/${createdCourse.id}`);
+        } else {
+            notify("Course creation error.", "error")
+        }
+
     }
 
     const handleUpdateCourse = async (e: FormEvent) =>{
         e.preventDefault();
+        showLoading()
         if(courseData){
             await updateCourse(courseData.id, courseName, selectedColor, token);
+            notify(`Course updated successfully.`, "success")
         }
         if(action){
             action()
         }
+        hideLoading()
         router.refresh()
     }
 

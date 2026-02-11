@@ -5,15 +5,19 @@ import {CommentInterface} from "@/types/Comment";
 import {formatDate} from "@/utils/common/formatDate";
 import {deleteComment} from "@/utils/comments/deleteComment";
 import {useRouter} from "next/navigation";
+import {useLoading} from "@/providers/LoadingProvider";
 
 
 export default function Comment({ comment, teacherName, username, token } : { comment : CommentInterface, teacherName : string, username: string | undefined, token : string | undefined }) {
 
     const router = useRouter();
+    const { showLoading, hideLoading } = useLoading();
 
     const handleCommentDelete = async () =>{
+        showLoading();
         await deleteComment(comment.id, token);
         router.refresh()
+        hideLoading()
     }
 
     return (

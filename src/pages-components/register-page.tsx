@@ -1,11 +1,12 @@
 "use client"
 
 import {FormEvent, useState} from "react";
-import { useRouter } from "next/navigation";
+import {useLoading} from "@/providers/LoadingProvider";
+import {registerFetch} from "@/utils/users/register";
+import {loginFetch} from "@/utils/users/login";
 
 
 export default function RegisterPage() {
-    const router = useRouter();
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -14,6 +15,7 @@ export default function RegisterPage() {
     const [emailValidated, setEmailValidated] = useState(false);
     const [userExists, setUserExists] = useState(false);
     const [loading, setLoading] = useState(false);
+    const { showLoading, hideLoading } = useLoading();
 
     const nameValidated = username.length < 50 && username.length > 3;
     const passwordValidated = password.length < 50 && password.length > 7;
@@ -29,26 +31,23 @@ export default function RegisterPage() {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         setLoading(true);
+        showLoading();
         setUserExists(false);
-        const userData = {
-            name: username.trim(),
-            password: password,
-            email: email.trim(),
-        }
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACK_HOST}/users`, {
-            method: 'POST',
-            body: JSON.stringify(userData),
-            headers: {
-                "Content-Type": "application/json",
-            }
-        })
+        const response = await registerFetch(username, password, email);
         if (!response.ok){
             setTimeout(() => {
                 setUserExists(true);
+                hideLoading();
                 setLoading(false);
             }, 700);
         } else {
-            router.replace("/login");
+            const loginAttempt = await loginFetch(username, password);
+            const authResult = await loginAttempt.json();
+            document.cookie = `accessToken=${authResult.accessToken}; path=/; max-age=${3600 * 24 * 3}; sameSite=Lax`;
+            document.cookie = `userID=${authResult.userID}; path=/; max-age=${3600 * 24 * 3}; sameSite=Lax`;
+            document.cookie = `username=${authResult.username}; path=/; max-age=${3600 * 24 * 3}; sameSite=Lax`;
+            hideLoading()
+            location.assign("/courses/teacher")
         }
     };
 

@@ -6,6 +6,7 @@ import { CommentInterface } from "@/types/Comment";
 import Image from "next/image";
 import {createComment} from "@/utils/comments/createComment";
 import {useRouter} from "next/navigation";
+import {useLoading} from "@/providers/LoadingProvider";
 
 
 interface CommentsProps {
@@ -21,11 +22,14 @@ interface CommentsProps {
 export default function Comments({ commentsData, teacherName, type, id, userID, username, token } : CommentsProps) {
     const router = useRouter();
     const [newComment, setNewComment] = useState("");
+    const { showLoading, hideLoading } = useLoading();
 
     const handeNewComment = async () => {
+        showLoading()
         await createComment(newComment, type, id, userID, username, token);
         router.refresh()
         setNewComment("");
+        hideLoading()
     }
 
     return (

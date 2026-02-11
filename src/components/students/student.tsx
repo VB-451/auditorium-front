@@ -3,14 +3,17 @@ import Image from "next/image";
 import {useModalContext} from "@/contexts/modal-context";
 import {deleteEnroll} from "@/utils/enrollments/deleteEnroll";
 import {useRouter} from "next/navigation";
+import {useLoading} from "@/providers/LoadingProvider";
 
 export default function Student({studentData, isTeacher, course_id} : {studentData: User, isTeacher: boolean, course_id:number}){
     const { token } = useModalContext();
-
+    const { showLoading, hideLoading } = useLoading();
     const router = useRouter()
 
     const handleDelete = async () =>{
+        showLoading()
         await deleteEnroll(studentData.id.toString(), course_id, token);
+        hideLoading()
         router.refresh()
     }
 

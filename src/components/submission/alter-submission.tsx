@@ -9,6 +9,8 @@ import Image from "next/image";
 import {uploadFile} from "@/utils/files/uploadFile";
 import {FileData} from "@/types/FileData";
 import {deleteFile} from "@/utils/files/deleteFile";
+import {useLoading} from "@/providers/LoadingProvider";
+import {useNotification} from "@/providers/NotificationProvider";
 
 export default function AlterSubmission({alterType, submissionData, postData, toggle, fileData} :
     {alterType: string, submissionData?: SubmissionInterface, postData?:CoursePost, toggle?:()=>void, fileData?: FileData | null }) {
@@ -19,12 +21,16 @@ export default function AlterSubmission({alterType, submissionData, postData, to
     const { user_id, username, token } = useModalContext();
     const router = useRouter()
 
+    const { showLoading, hideLoading } = useLoading();
+    const { notify } = useNotification();
+
     const removeFile = () =>{
         setFile(null);
         setFileRemoved(true);
     }
 
     const handleCreateSubmission = async ()=>{
+        showLoading()
         const submission = await createSubmission(content, Number(user_id), postData?.id, username, postData?.deadline, token);
         if(file){
             const formData = new FormData();
@@ -32,10 +38,13 @@ export default function AlterSubmission({alterType, submissionData, postData, to
             formData.append('submission_id', submission.id);
             await uploadFile(formData, token)
         }
+        notify("Submission successfully posted.", "success")
+        hideLoading()
         router.push(`/course/${postData?.course_id}/post/${postData?.id}/submissions/${submission.id}`);
     }
 
     const handleUpdateSubmission = async () =>{
+        showLoading()
         if(fileRemoved){
             await deleteFile(fileData?.id, token)
         }
@@ -46,6 +55,8 @@ export default function AlterSubmission({alterType, submissionData, postData, to
             await uploadFile(formData, token)
         }
         await updateSubmission(submissionData?.id, content, token);
+        notify("Submission successfully updated.", "success")
+        hideLoading()
         if(toggle){
             toggle();
         }

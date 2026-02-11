@@ -4,6 +4,8 @@ import {FormEvent, useState} from "react";
 import {useModalContext} from "@/contexts/modal-context";
 import {enroll} from "@/utils/enrollments/enroll";
 import { useRouter   } from 'next/navigation'
+import {useLoading} from "@/providers/LoadingProvider";
+import {useNotification} from "@/providers/NotificationProvider";
 
 export default function Enroll(){
     const router = useRouter();
@@ -13,7 +15,8 @@ export default function Enroll(){
     const [courseExists, setCourseExists] = useState(true)
 
     const { user_id, token } = useModalContext();
-
+    const { showLoading, hideLoading } = useLoading();
+    const { notify } = useNotification();
 
     const handleKeyChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
         setJoinKey(e.target.value)
@@ -22,14 +25,17 @@ export default function Enroll(){
 
     const handleEnroll = async (e: FormEvent) =>{
         e.preventDefault();
+        showLoading()
         setCourseExists(true)
         const response = await enroll(user_id, joinKey, token);
         setJoinKey("")
         setKeyValid(false)
+        hideLoading()
         if (!response.ok) {
             setTimeout(() => {setCourseExists(false)}, 2000)
         } else {
             const { course_id } = await response.json();
+            notify("Successfully enrolled.", "success")
             router.push(`/course/${course_id}`);
         }
     }

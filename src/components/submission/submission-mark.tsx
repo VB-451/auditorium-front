@@ -3,9 +3,13 @@
 import {useState} from "react";
 import {SubmissionInterface} from "@/types/Submission";
 import {markSubmission} from "@/utils/submissions/markSubmission";
+import {useLoading} from "@/providers/LoadingProvider";
+import {useNotification} from "@/providers/NotificationProvider";
 
 export default function SubmissionMark({submissionData, markInterval, isTeacher, token} : {submissionData: SubmissionInterface, markInterval: number, isTeacher: boolean, token:string | undefined}) {
     const [mark, setMark] = useState(submissionData.mark?.toString() || "");
+    const { showLoading, hideLoading } = useLoading();
+    const { notify } = useNotification();
 
     const handleMarkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if(e.target.value.length <= 3 && Number(e.target.value) <= markInterval) {
@@ -14,7 +18,10 @@ export default function SubmissionMark({submissionData, markInterval, isTeacher,
     }
 
     const handleMark = async () =>{
+        showLoading();
         await markSubmission(submissionData.id, Number(mark), token)
+        notify(`Submission marked successfully with ${mark} points.`, "success")
+        hideLoading();
     }
 
     const inputWidth = (() =>{

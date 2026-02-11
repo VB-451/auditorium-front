@@ -10,6 +10,8 @@ import {User} from "@/types/User";
 import {newJoinKey} from "@/utils/courses/newJoinKey";
 import AlterCourse from "@/components/alter-course/alter-course";
 import {CourseData} from "@/types/Course";
+import {useLoading} from "@/providers/LoadingProvider";
+import {useNotification} from "@/providers/NotificationProvider";
 
 export default function CourseDropdown({isTeacher, courseData, courseUsers} : {isTeacher: boolean, courseData: CourseData, courseUsers?: Array<User>}) {
     const router = useRouter();
@@ -20,6 +22,9 @@ export default function CourseDropdown({isTeacher, courseData, courseUsers} : {i
     const toggleOn = () => {
         setIsOn(!isOn);
     }
+
+    const { showLoading, hideLoading } = useLoading();
+    const { notify } = useNotification();
 
     const user_id = getCookie("userID");
     const token = getCookie("accessToken");
@@ -34,12 +39,18 @@ export default function CourseDropdown({isTeacher, courseData, courseUsers} : {i
     })
 
     const handleDeleteEnroll = async () => {
+        showLoading();
         await deleteEnroll(user_id, courseData.id, token);
+        hideLoading()
+        notify("Course successfully left.", "success")
         router.push("/courses/student")
     }
 
     const handleNewJoinKey = async () => {
+        showLoading();
         await newJoinKey(courseData.id, token);
+        hideLoading()
+        notify("New join key generated.", "success")
         router.refresh()
     }
     return (

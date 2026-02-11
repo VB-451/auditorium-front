@@ -1,7 +1,8 @@
 "use client"
 
 import {FormEvent, useState} from "react";
-import {loginFetch} from "@/utils/login";
+import {loginFetch} from "@/utils/users/login";
+import {useLoading} from "@/providers/LoadingProvider";
 
 export default function LoginPage() {
 
@@ -9,16 +10,19 @@ export default function LoginPage() {
     const [password, setPassword] = useState("14231423");
     const [loading, setLoading] = useState(false);
     const [wrongCredentials, setWrongCredentials] = useState(false);
+    const { showLoading, hideLoading } = useLoading();
 
     const handleLogin = async (e: FormEvent) =>{
         e.preventDefault();
         setLoading(true);
+        showLoading()
         setWrongCredentials(false)
         const response = await loginFetch(login, password);
 
         if (!response.ok) {
             setTimeout(() => {
                 setLoading(false)
+                hideLoading()
                 setWrongCredentials(true);
             }, 2000);
         } else {
@@ -27,7 +31,7 @@ export default function LoginPage() {
             document.cookie = `accessToken=${authResult.accessToken}; path=/; max-age=${3600 * 24 * 3}; sameSite=Lax`;
             document.cookie = `userID=${authResult.userID}; path=/; max-age=${3600 * 24 * 3}; sameSite=Lax`;
             document.cookie = `username=${authResult.username}; path=/; max-age=${3600 * 24 * 3}; sameSite=Lax`;
-
+            hideLoading()
             location.assign("/courses/teacher")
         }
     }

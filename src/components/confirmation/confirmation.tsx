@@ -1,5 +1,7 @@
 import {useModalContext} from "@/contexts/modal-context";
 import {usePathname, useRouter} from "next/navigation";
+import {useLoading} from "@/providers/LoadingProvider";
+import {useNotification} from "@/providers/NotificationProvider";
 
 interface ConfirmationProps {
     question: string,
@@ -12,17 +14,24 @@ interface ConfirmationProps {
 export default function Confirmation({question, confirmName, executeFunction, toggle, id} : ConfirmationProps) {
 
     const { token } = useModalContext();
+    const { showLoading, hideLoading } = useLoading();
+    const { notify } = useNotification();
     const router = useRouter();
     const pathname = usePathname();
 
     const handleDelete = async () =>{
+        showLoading();
         const response = await executeFunction(id || 0, token);
+        hideLoading();
         if(pathname){
             if(response === "post"){
+                notify("Successfully deleted post.", "success")
                 router.push(`/course/${pathname.split("/")[2]}`);
             } else if (response === "course"){
+                notify("Successfully deleted course.", "success")
                 router.push("/courses/teacher")
             } else {
+                notify("Successfully deleted submission.", "success")
                 router.push(`/course/${pathname.split("/")[2]}/post/${pathname.split("/")[4]}`)
             }
         }

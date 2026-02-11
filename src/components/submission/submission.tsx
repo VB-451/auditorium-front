@@ -12,7 +12,7 @@ export default function Submission({submissionData, markInterval, deadline} : {s
                 <div className="flex-grew flex items-center justify-start">
                     <Image className="rounded-full w-10 h-10 mr-3" src={"/pfp.jpg"} alt={"pfp"} width={40} height={40}/>
                     <p className="mr-3 text-lg font-sans">{submissionData.student_name}</p>
-                    <div className="w-[1px] h-9 bg-gray-300 mr-3"/>
+                    <div className="w-[1px] h-9 bg-gray-300 mr-3" />
                     <p className={`font-semibold ${deadlinePassed ? "text-primary_pink" : "text-primary_green"}`}>{
                         dateDiff(
                             submissionData.edited_at ? submissionData.edited_at.toString() : submissionData.created_at.toString(),

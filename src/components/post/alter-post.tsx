@@ -10,6 +10,9 @@ import {uploadFile} from "@/utils/files/uploadFile";
 import Image from "next/image";
 import {FileData} from "@/types/FileData";
 import {deleteFile} from "@/utils/files/deleteFile";
+import {useLoading} from "@/providers/LoadingProvider";
+import {useNotification} from "@/providers/NotificationProvider";
+import {shortenText} from "@/utils/common/shortenText";
 
 export default function AlterPost({alterType, postData, course_id, toggle, fileData} :
     {alterType: string, postData?: CoursePost, course_id?: number, toggle?:()=>void, fileData?: FileData | null}) {
@@ -23,7 +26,8 @@ export default function AlterPost({alterType, postData, course_id, toggle, fileD
             return new Date(postData.deadline);
         } else return new Date();
     });
-
+    const { showLoading, hideLoading } = useLoading();
+    const { notify } = useNotification();
     const [file, setFile] = useState<File | null | boolean>(fileData ? true : null);
 
     const { token, username } = useModalContext();
@@ -40,6 +44,7 @@ export default function AlterPost({alterType, postData, course_id, toggle, fileD
     }
 
     const handleCreatePost = async () =>{
+        showLoading();
         const post = await createPost(title, content, type, course_id, username, token, deadline, markInterval);
         if(file){
             const formData = new FormData();
@@ -47,10 +52,13 @@ export default function AlterPost({alterType, postData, course_id, toggle, fileD
             formData.append('post_id', post.id);
             await uploadFile(formData, token)
         }
+        notify(`"${shortenText(post.title, 40)}" post created successfully.`, "success")
+        hideLoading();
         router.replace(`/course/${course_id}/post/${post.id}`);
     }
 
     const handleUpdatePost = async () =>{
+        showLoading();
         if(fileRemoved){
             await deleteFile(fileData?.id, token)
         }
@@ -60,8 +68,9 @@ export default function AlterPost({alterType, postData, course_id, toggle, fileD
             formData.append('post_id', postData.id);
             await uploadFile(formData, token)
         }
-
         await updatePost(postData?.id, title, content, deadline, token)
+        notify("Post updated successfully.", "success")
+        hideLoading();
         router.refresh()
         if(toggle){
             toggle();
