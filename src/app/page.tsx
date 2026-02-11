@@ -1,7 +1,7 @@
 import {redirect} from "next/navigation";
 
 export default function StartPage(){
-    redirect("/register");
+    redirect("/courses/teacher");
     return (
         <>
             Main
