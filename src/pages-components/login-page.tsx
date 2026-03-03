@@ -54,7 +54,7 @@ export default function LoginPage() {
                             className={`mt-4 text-white font-bold px-2 py-1 h-10 rounded 
                             ${(login.length < 3 || login.length > 40) || password.length < 8 || loading 
                                 ? "bg-gray-300 cursor-not-allowed transition-colors" 
-                                : "bg-primary_green transition-colors"}`}>Login
+                                : "bg-primary_green transition-colors hover:bg-primary_pink"}`}>Login
                     </button>
                 </form>
             </div>

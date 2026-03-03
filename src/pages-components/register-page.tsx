@@ -89,7 +89,7 @@ export default function RegisterPage() {
                         <p className="text-sm text-center text-primary_pink">User with that name or email already exists</p>
                     )}
                     <button disabled={!buttonActive || loading}
-                        className={`mt-4 text-white font-bold px-2 py-1 h-10 rounded ${buttonActive && !loading ? "bg-primary_green" : "bg-gray-300 cursor-not-allowed transition-colors"}`}>Register
+                        className={`mt-4 text-white font-bold px-2 py-1 h-10 rounded transition-colors ${buttonActive && !loading ? "bg-primary_green hover:bg-primary_pink" : "bg-gray-300 cursor-not-allowed"}`}>Register
                     </button>
                 </form>
             </div>

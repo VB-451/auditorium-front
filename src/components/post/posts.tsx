@@ -21,13 +21,13 @@ export default function Posts({coursePosts, courseId} : {coursePosts: Array<Cour
         <>
             <div className="w-fit h-fit flex my-3">
                 <button className={`px-5 py-2 rounded-lg border-gray-300 border mr-3
-                ${filter === "ALL" ? "bg-primary_green text-white font-semibold" : "bg-white"}
+                ${filter === "ALL" ? "bg-primary_green text-white font-semibold" : "bg-white hover:bg-gray-100 transition-colors"}
                 `} onClick={()=>{setFilter("ALL")}}>All</button>
                 <button className={`px-5 py-2 rounded-lg border-gray-300 border mr-3
-                ${filter === "HOMEWORK" ? "bg-primary_green text-white font-semibold" : "bg-white"}
+                ${filter === "HOMEWORK" ? "bg-primary_green text-white font-semibold" : "bg-white hover:bg-gray-100 transition-colors"}
                 `} onClick={()=>{setFilter("HOMEWORK")}}>Homeworks</button>
                 <button className={`px-5 py-2 rounded-lg border-gray-300 border mr-3
-                ${filter === "ANNOUNCEMENT" ? "bg-primary_green text-white font-semibold" : "bg-white"}
+                ${filter === "ANNOUNCEMENT" ? "bg-primary_green text-white font-semibold" : "bg-white hover:bg-gray-100 transition-colors"}
                 `} onClick={()=>{setFilter("ANNOUNCEMENT")}}>Announcements</button>
             </div>
             {filteredCoursePosts.map((post) => (

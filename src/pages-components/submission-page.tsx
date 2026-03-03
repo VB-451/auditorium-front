@@ -56,7 +56,7 @@ export default function SubmissionPage({submissionData, markInterval, deadline, 
                     )}
                 </div>
                 <div className="w-full h-[1px] bg-gray-200 mt-3"/>
-                <p className="w-full text-left mt-4 pl-1 whitespace-break-spaces">{submissionData.content}</p>
+                <p className="w-full text-left mt-4 pl-1 whitespace-break-spaces overflow-y-auto max-h-80 h-fit">{submissionData.content}</p>
                 <div className="w-full h-[1px] bg-gray-200 mt-3"/>
                 {fileData && (
                     <>

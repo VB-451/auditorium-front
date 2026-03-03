@@ -8,7 +8,7 @@ export default function Submission({submissionData, markInterval, deadline} : {s
     const deadlinePassed = lastChanged > deadline;
 
     return (
-            <Link href={`submissions/${submissionData.id}`} className="w-full h-16 p-3 bg-white mb-4 rounded-xl flex justify-between items-center">
+            <Link href={`submissions/${submissionData.id}`} className="w-full h-16 p-3 bg-white mb-4 rounded-xl flex justify-between items-center hover:bg-white/70 transition-colors">
                 <div className="flex-grew flex items-center justify-start">
                     <Image className="rounded-full w-10 h-10 mr-3" src={"/pfp.jpg"} alt={"pfp"} width={40} height={40}/>
                     <p className="mr-3 text-lg font-sans">{submissionData.student_name}</p>

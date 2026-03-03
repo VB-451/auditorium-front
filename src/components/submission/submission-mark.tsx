@@ -39,7 +39,7 @@ export default function SubmissionMark({submissionData, markInterval, isTeacher,
                    className={`${inputWidth()} bg-gray-100 text-primary_green font-semibold text-right rounded-l text-lg outline-0`}/>
             <p className="text-lg text-primary_green font-semibold pr-1 bg-gray-100 rounded-r">/{markInterval}</p>
             {isTeacher && (
-                <button className="ml-4 bg-primary_pink text-white font-semibold py-1 px-2 rounded"
+                <button className="ml-4 bg-primary_pink text-white font-semibold py-1 px-2 rounded hover:bg-primary_pink/90 transition-colors"
                         onClick={handleMark}>Mark</button>
             )}
         </div>

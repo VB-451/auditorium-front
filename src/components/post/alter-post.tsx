@@ -151,7 +151,7 @@ export default function AlterPost({alterType, postData, course_id, toggle, fileD
                     </div>
                 )}
                 <button className={`mt-auto text-white font-semibold py-1 px-2 rounded transition
-                ${(title.length < 3 || title.length > 250) || (content.length < 10) ? "bg-gray-300" : "bg-primary_green"}`}
+                ${(title.length < 3 || title.length > 250) || (content.length < 10) ? "bg-gray-300" : "bg-primary_green hover:bg-primary_pink transition-colors"}`}
                         onClick={alterType === "create" ? handleCreatePost : handleUpdatePost}
                         disabled={(title.length < 3 || title.length > 250) || (content.length < 10)}>
                     {alterType === "create" ? "Create" : "Update"}

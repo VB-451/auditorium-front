@@ -38,11 +38,11 @@ export default function Confirmation({question, confirmName, executeFunction, to
     }
     return (
         <div className="bg-white w-96 h-52 py-4 px-4 rounded-xl flex flex-col items-center justify-between">
-            <p className="text-3xl font-semibold text-gray-400">Are you sure?</p>
-            <p className="text-center text-xl mt-3">{question}</p>
-            <div className="flex items-center justify-evenly w-full mt-3">
-                <button className="bg-gray-400 text-white text-xl font-semibold py-2 px-3 rounded" onClick={toggle}>Cancel</button>
-                <button className="bg-primary_pink text-white text-xl font-semibold py-2 px-3 rounded" onClick={handleDelete}>{confirmName}</button>
+            <p className="text-2xl font-medium text-gray-400">Are you sure?</p>
+            <p className="text-center text-lg">{question}</p>
+            <div className="flex items-center justify-evenly w-full">
+                <button className="bg-gray-400 hover:bg-gray-400/90 transition-colors text-white text-lg font-semibold py-1 px-3 rounded" onClick={toggle}>Cancel</button>
+                <button className="bg-primary_pink hover:bg-primary_pink/90 transition-colors text-white text-lg font-semibold py-1 px-3 rounded" onClick={handleDelete}>{confirmName}</button>
             </div>
         </div>
     )

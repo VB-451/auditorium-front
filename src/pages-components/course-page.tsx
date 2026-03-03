@@ -1,4 +1,3 @@
-import Post from "@/components/post/post";
 import {CourseData} from "@/types/Course";
 import {CoursePost} from "@/types/Post";
 import Options from "@/components/options/options";

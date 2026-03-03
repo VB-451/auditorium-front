@@ -87,7 +87,7 @@ export default function AlterSubmission({alterType, submissionData, postData, to
                     </div>
                 )}
                 <button
-                    className={`text-white text-xl font-semibold py-1 px-2 rounded ${content.length >= 3 ? "bg-primary_green" : "bg-gray-300"}`}
+                    className={`text-white text-xl font-semibold py-1 px-2 rounded ${content.length >= 3 ? "bg-primary_green hover:bg-primary_pink transition-colors" : "bg-gray-300"}`}
                     onClick={alterType === "create" ? handleCreateSubmission : handleUpdateSubmission}
                     disabled={content.length < 3}>
                     {alterType === "create" ? "Submit" : "Update"}

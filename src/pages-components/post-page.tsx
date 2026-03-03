@@ -69,7 +69,7 @@ export default async function PostPage({ postData, cookieName, submission, fileD
                             ) : (
                                 <Link href={`/course/${postData.course_id}/post/${postData.id}/submissions`}>
                                     <button
-                                        className="mr-3 bg-primary_green text-white text-xl font-bold px-3 py-2 rounded">View
+                                        className="mr-3 bg-primary_green text-white text-xl font-bold px-3 py-2 rounded hover:bg-primary_green/90">View
                                         Submissions
                                     </button>
                                 </Link>
@@ -81,7 +81,7 @@ export default async function PostPage({ postData, cookieName, submission, fileD
                 <div className="flex justify-center items-center w-full">
                     <div className="w-full h-[1px] bg-gray-200 mt-5"/>
                 </div>
-                <div className="flex w-full mt-4 pl-1 whitespace-break-spaces"><p>{postData.content}</p></div>
+                <div className="flex w-full h-fit mt-4 pl-1 whitespace-break-spaces overflow-y-auto max-h-80"><p>{postData.content}</p></div>
                 <div className="flex justify-center items-center w-full">
                     <div className="w-full h-[1px] bg-gray-200 mt-4"/>
                 </div>

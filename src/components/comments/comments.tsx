@@ -54,8 +54,8 @@ export default function Comments({ commentsData, teacherName, type, id, userID, 
                                   }
                               }}
                     />
-                    <button className="bg-primary_green h-full w-12 rounded-r-xl flex items-center justify-center"
-                    onClick={handeNewComment}>
+                    <button className={`bg-primary_green h-full w-12 rounded-r-xl flex items-center justify-center ${newComment && "hover:bg-primary_green/90"}`}
+                    onClick={handeNewComment} disabled={!newComment}>
                         <Image className={"w-8 h-8"} src={"/send.svg"} alt={"send"} width={50} height={50} />
                     </button>
                 </div>

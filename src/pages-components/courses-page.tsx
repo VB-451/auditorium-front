@@ -30,7 +30,7 @@ export default function CoursesPage({ data, posts, type } : HomeProps ) {
                 </div>
                 {posts.length > 0 && (
                     <div className="mt-5">
-                        <p className="text-2xl">
+                        <p className="text-xl">
                             {type === "teacher" ? "Posts with unmarked submissions:" : "Posts you have to submit to:"}
                         </p>
                         <div className="mt-2 pr-1 w-1/3 max-h-80 overflow-y-auto">

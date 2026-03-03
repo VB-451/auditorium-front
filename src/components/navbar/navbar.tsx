@@ -13,12 +13,12 @@ export default function Navbar({ name } : {name: string | undefined}) {
                         <div className="w-fit ml-5 h-full flex items-center justify-between">
                             <Link href="/login">
                                 <button
-                                    className="px-2 py-2 rounded text-white bg-primary_green font-semibold hover:bg-[#1ad087] transition">Login
+                                    className="px-2 py-2 rounded text-white bg-primary_green font-semibold hover:bg-[#1ad087] transition-all">Login
                                 </button>
                             </Link>
                             <Link href="/register">
                                 <button
-                                    className="px-2 py-2 ml-3 rounded text-white font-semibold bg-primary_pink">Register
+                                    className="px-2 py-2 ml-3 rounded text-white font-semibold bg-primary_pink hover:bg-primary_pink/90 transition">Register
                                 </button>
                             </Link>
                         </div>

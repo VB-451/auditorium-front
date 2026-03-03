@@ -19,7 +19,12 @@ const config: Config = {
         primary_blue: "#17a9b9",
       },
     },
-  },
+  }, safelist: [
+    "hover:bg-primary_pink",
+    "hover:bg-primary_purple",
+    "hover:bg-primary_blue",
+    "hover:bg-primary_orange",
+  ],
   plugins: [],
 };
 export default config;

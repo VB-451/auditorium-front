@@ -48,7 +48,6 @@ export default function AlterCourse({type, courseData, action} : {type: string, 
 
     return (
         <form onSubmit={type === "post" ? handleCreateCourse : handleUpdateCourse} className="bg-white rounded-lg w-96 h-fit py-4 px-3 flex flex-col items-center">
-            <p className="text-3xl font-semibold text-primary_green">{type === "post" ? "New Course" : "Edit Course"}</p>
             <input type="text" className="w-full h-12 px-2 py-1 mt-3 focus:outline-none text-xl rounded bg-gray-100"
                    placeholder="Course Name"
                    onChange={(e) => {
@@ -71,7 +70,7 @@ export default function AlterCourse({type, courseData, action} : {type: string, 
                     className={`mt-5 py-2 px-3 text-white text-xl font-semibold rounded transition-colors
                     ${(courseName.length < 3 || courseName.length > 70) 
                     ? "bg-gray-300 cursor-not-allowed" 
-                    : "bg-primary_green"}`}
+                    : `bg-primary_green hover:bg-primary_${selectedColor}`}`}
                     onClick={type === "post" ? handleCreateCourse : handleUpdateCourse}>
                     {type === "post" ? "Create" : "Update"}
             </button>
